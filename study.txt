@@ -1,0 +1,61 @@
+1.关于Android手机适配问题。
+  http://blog.csdn.net/lmj623565791/article/details/45460089
+  http://blog.csdn.net/lmj623565791/article/details/46695347
+
+2.关于Recyclerview实现滑动删除和长按移动。
+  http://blog.csdn.net/lmj623565791/article/details/45460089
+  http://chuansong.me/n/400690551872
+
+3.关于Activity转场动画。
+  http://blog.csdn.net/qibin0506/article/details/48129139/
+
+4.关于Android动画。
+  http://blog.csdn.net/wangbaochu/article/details/49457049
+
+5.关于Android开发常见问题。
+  http://www.2cto.com/kf/201312/261084.html
+
+6.关于MeasureSpec。
+  http://blog.csdn.net/yuhailong626/article/details/20639217
+
+7.关于Fragment。
+  http://blog.csdn.net/jav_imba/article/details/47417853
+
+8.关于RecyclerView的Item点击事件。
+  http://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650820134&idx=1&sn=58103e352e5269159778d35dc36ed207&scene=21#wechat_redirect
+
+9.原型设计工具学习。
+
+/*******************************************************/
+以下内容可以在 
+http://www.runoob.com/w3cnote/android-tutorial-intro.html
+中学习
+/*******************************************************/
+
+10.HTML5的学习和简单使用。
+
+11.CSS3的学习和简单使用。
+
+12 JS的学习和简单使用。
+
+13.SQLite的复习 。
+
+14.Canvas Paint path
+
+15 Xfermode
+
+16 ColorFilter
+
+17 PathEffec
+
+18 git工具的学习使用 及与GitHub搭配使用。
+
+19 Camera学习(过时)和 Camera2的学习
+
+
+/*******************************************************/
+/*******************************************************/
+
+20.Android 主题换肤技术学习
+ http://www.jianshu.com/p/af7c0585dd5b
+ http://blog.zhaiyifan.cn/2015/09/10/Android%E6%8D%A2%E8%82%A4%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/
