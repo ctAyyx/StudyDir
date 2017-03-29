@@ -59,3 +59,9 @@ http://www.runoob.com/w3cnote/android-tutorial-intro.html
 20.Android 主题换肤技术学习
  http://www.jianshu.com/p/af7c0585dd5b
  http://blog.zhaiyifan.cn/2015/09/10/Android%E6%8D%A2%E8%82%A4%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/
+
+21.Android SVG
+ http://inloop.github.io/svg2android/用于转换成Xml文件
+ http://editor.method.ac/生成SVG
+ http://blog.csdn.net/yw1688/article/details/53835956?locationNum=12&fps=1
+ 
