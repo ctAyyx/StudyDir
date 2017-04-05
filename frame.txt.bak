@@ -1,0 +1,18 @@
+1.网络 
+  OKHttp  Retrofit 
+2.JSon
+  Gson
+3.数据库
+  GreenDao
+4.动态数据
+  RxJAVA RxAndroid
+5.注解绑定
+  Butterknif
+6.图片加载
+  Glide Picasso
+7.权限申请
+  EasyPermission
+8.刷新框架
+  ptr-load-more
+9.动画框架
+  Lottie
