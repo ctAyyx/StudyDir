@@ -64,4 +64,14 @@ http://www.runoob.com/w3cnote/android-tutorial-intro.html
  http://inloop.github.io/svg2android/用于转换成Xml文件
  http://editor.method.ac/生成SVG
  http://blog.csdn.net/yw1688/article/details/53835956?locationNum=12&fps=1
- 
+
+22.日志工具类，网络请求日志工具类的封装。
+
+23.反射 注解 动态代理
+
+24.多分包技术 热修复
+  http://blog.csdn.net/mynameishuangshuai/article/details/52716877
+  http://blog.csdn.net/mynameishuangshuai/article/details/52718202
+
+25.滑动返回
+  http://www.jcodecraeer.com/a/opensource/2016/1230/6922.html

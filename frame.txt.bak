@@ -16,3 +16,15 @@
   ptr-load-more
 9.动画框架
   Lottie
+10.水波纹效果
+  CircularReveal
+11.AlertDailog
+  alertview
+12.图片裁剪
+  cropiwa
+13.弹出式菜单
+  BoomMenuButton
+14.约束布局
+  ConstraintLayout
+15.内存检测
+  LeakCanary
