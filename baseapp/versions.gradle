@@ -1,0 +1,118 @@
+/* 依赖包 */
+
+ext.deps = [:]
+
+def versions = [:]
+versions.gradle = '3.5.3'
+versions.kotlin = '1.3.70'
+
+versions.core = '1.2.0'
+versions.appcompat = "1.1.0"
+versions.constraintlayout = '1.1.3'
+
+versions.nav_version = '2.2.0'
+versions.paging = '2.1.1'
+versions.lifecycle = '2.2.0'
+versions.room = '2.2.3'
+versions.work = '2.3.0'
+
+versions.dagger = '2.27'
+versions.glide = '4.11.0'
+versions.retrofit = '2.7.2'
+versions.rxjava2 = '2.7.2'
+versions.converter_gson = '2.7.2'
+versions.leakcanary = '2.2'
+
+def gradle = [:]
+gradle.gradle = "com.android.tools.build:gradle:$versions.gradle"
+
+
+def kotlin = [:]
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.jdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+
+def build = [:]
+build.min_sdk = 21
+build.target_sdk = 29
+build.tool = '29.0.3'
+build.version_code = 1
+build.version_name = '1.0'
+
+
+//Androidx
+def androidx = [:]
+androidx.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
+androidx.core = "androidx.core:core-ktx:$versions.core"
+androidx.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+//Navigation
+def navigation = [:]
+navigation.fragment = "androidx.navigation:navigation-fragment-ktx:$versions.nav_version"
+navigation.ui = "androidx.navigation:navigation-ui-ktx:$versions.nav_version"
+navigation.safe_args = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.nav_version"
+
+//Paging
+def paging = [:]
+paging.runtime = "androidx.paging:paging-runtime-ktx:$versions.paging"
+paging.rxjava2 = "androidx.paging:paging-rxjava2-ktx:$versions.paging"
+
+//Lifecycle
+def lifecycle = [:]
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+lifecycle.viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+
+//Room
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+room.extension = "androidx.room:room-ktx:$versions.room"
+
+//WorkManager
+def work = [:]
+work.runtime = "androidx.work:work-runtime-ktx:$versions.work"
+
+
+//Retrofit
+def retrofit = [:]
+retrofit.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+
+//Glide
+def glide = [:]
+glide.glide = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+
+//Dagger2
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.android_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"
+
+def leakcanary = [:]
+leakcanary.android = "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"//debugImplementation 
+
+def test = [:]
+test.junit = "junit:junit:4.12"
+test.runner = "androidx.test.ext:junit:1.1.1"
+test.espresso = "androidx.test.espresso:espresso-core:3.2.0"
+
+deps.gradle = gradle
+deps.kotlin = kotlin
+deps.build = build
+deps.androidx = androidx
+deps.navigation = navigation
+deps.paging = paging
+deps.lifecycle = lifecycle
+deps.room = room
+deps.work = work
+deps.retrofit = retrofit
+deps.glide = glide
+deps.dagger = dagger
+deps.test = test
+
+
+
+
