@@ -26,6 +26,8 @@ class IPCHomeActivity : AppCompatActivity() {
             R.id.btn_ipcHome_binder -> {
                 val intent = Intent()
                 intent.action = "com.ct.ipc_service"
+                //在Android 5.0以上 不能隐式绑定服务
+                //需要明确服务的包名
                 intent.`package` = "com.ct.ipcservice"
                 bindService(intent, IPCServiceConnection(), Context.BIND_AUTO_CREATE)
 
