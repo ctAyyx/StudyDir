@@ -11,6 +11,8 @@
             <option value="$PROJECT_DIR$/animatorapp" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baseapp" />
+            <option value="$PROJECT_DIR$/ipcapp" />
+            <option value="$PROJECT_DIR$/ipcserviceapp" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

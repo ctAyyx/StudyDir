@@ -1,2 +1,2 @@
-include ':app', ':animatorapp', ':baseapp'
+include ':app', ':animatorapp', ':baseapp', ':ipcapp', ':ipcserviceapp'
 rootProject.name='StudyDir'

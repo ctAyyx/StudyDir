@@ -14,14 +14,4 @@ class AnimatorHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animator_home)
     }
-
-
-    fun onClick(view: View) {
-
-        when (view.id) {
-            R.id.btn_animHome_value -> {
-            }
-        }
-    }
-
 }

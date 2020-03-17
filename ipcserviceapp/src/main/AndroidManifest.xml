@@ -1,0 +1,35 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ct.ipcservice">
+
+    <application
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".IPCServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.IPCBinderService"
+            android:process=":IPCService">
+            <intent-filter>
+                <action android:name="com.ct.ipc_service" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".service.IPCMessengerService"
+            android:process=":IPCMessengerService">
+            <intent-filter>
+                <action android:name="com.ct.ipc_messenger_service" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

@@ -44,28 +44,60 @@ def androidx = [:]
 androidx.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
 androidx.core = "androidx.core:core-ktx:$versions.core"
 androidx.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+
 //Navigation
 def navigation = [:]
-navigation.fragment = "androidx.navigation:navigation-fragment-ktx:$versions.nav_version"
-navigation.ui = "androidx.navigation:navigation-ui-ktx:$versions.nav_version"
+navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.nav_version"
+navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.nav_version"
+navigation.fragment = "androidx.navigation:navigation-fragment:$versions.nav_version"
+navigation.ui = "androidx.navigation:navigation-ui:$versions.nav_version"
+//动态模块支持库
+navigation.dynamic = "androidx.navigation:navigation-dynamic-features-fragment:$versions.nav_version"
+//测试
+navigation.test = "androidx.navigation:navigation-testing:$versions.nav_version"
+//插件
 navigation.safe_args = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.nav_version"
+
 
 //Paging
 def paging = [:]
-paging.runtime = "androidx.paging:paging-runtime-ktx:$versions.paging"
-paging.rxjava2 = "androidx.paging:paging-rxjava2-ktx:$versions.paging"
+paging.runtime_ktx = "androidx.paging:paging-runtime-ktx:$versions.paging"
+paging.runtime = "androidx.paging:paging-runtime:$versions.paging"
+//RxJava2
+paging.rxjava2_ktx = "androidx.paging:paging-rxjava2-ktx:$versions.paging"
+paging.rxjava2 = "androidx.paging:paging-rxjava2:$versions.paging"
+paging.test_ktx = "androidx.paging:paging-common-ktx:$versions.paging"
+paging.test = "androidx.paging:paging-common:$versions.paging"
 
 //Lifecycle
 def lifecycle = [:]
-lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
-lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
-lifecycle.viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+lifecycle.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+lifecycle.livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+lifecycle.runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+lifecycle.java8_ktx = "androidx.lifecycle:lifecycle-reactivestreams-ktx:$versions.lifecycle"
+
+lifecycle.viewmodel = "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle"
+lifecycle.livedata = "androidx.lifecycle:lifecycle-livedata:$versions.lifecycle"
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+lifecycle.java8 = "androidx.lifecycle:lifecycle-reactivestreams:$versions.lifecycle"
+
+lifecycle.savedstate = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycle"
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"//kapt annotationProcessor
+lifecycle.testing = "androidx.arch.core:core-testing:$versions.lifecycle"//testImplementation
+
 
 //Room
 def room = [:]
 room.runtime = "androidx.room:room-runtime:$versions.room"
-room.compiler = "androidx.room:room-compiler:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"//kapt annotationProcessor
+//支持Kotlin协同程序
 room.extension = "androidx.room:room-ktx:$versions.room"
+//支持RxJava2
+room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
+//支持Guava
+room.guava = "androidx.room:room-guava:$versions.room"
+//测试
+room.test = "androidx.room:room-testing:$versions.room"//testImplementation
 
 //WorkManager
 def work = [:]
@@ -92,7 +124,7 @@ dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dag
 dagger.android_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"
 
 def leakcanary = [:]
-leakcanary.android = "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"//debugImplementation 
+leakcanary.android = "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"//debugImplementation
 
 def test = [:]
 test.junit = "junit:junit:4.12"

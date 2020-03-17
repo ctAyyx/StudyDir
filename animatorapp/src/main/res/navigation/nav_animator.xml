@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_animator"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ct.animator.HomeFragment"
+
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_objectFragment"
+            app:destination="@id/objectFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_valueFragment"
+            app:destination="@id/valueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/objectFragment"
+        android:name="com.ct.animator.ui.ObjectFragment"
+        android:label="ObjectFragment" />
+    <fragment
+        android:id="@+id/valueFragment"
+        android:name="com.ct.animator.ui.ValueFragment"
+        android:label="ValueFragment" />
+</navigation>
