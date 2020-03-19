@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import com.ct.baseapp.util.AppUtil
-import com.ct.ipcservice.IPCBinder
+import com.ct.ipcservice.binder.IPCBinder
 
 /**
  * 通过Binder进行通讯

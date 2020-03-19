@@ -56,9 +56,9 @@ dependencies {
     api deps.navigation.ui_ktx
 
     //Retrofit
-    api deps.retrofit.retrofit
-    api deps.retrofit.gson
-    api deps.retrofit.rxjava2
+//    api deps.retrofit.retrofit
+//    api deps.retrofit.gson
+//    api deps.retrofit.rxjava2
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

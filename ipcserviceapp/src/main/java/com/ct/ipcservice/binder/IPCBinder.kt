@@ -1,4 +1,4 @@
-package com.ct.ipcservice
+package com.ct.ipcservice.binder
 
 import android.os.Binder
 import android.os.Parcel

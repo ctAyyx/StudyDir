@@ -13,11 +13,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ct.baseapp.util.AppUtil
 import com.ct.ipcservice.connection.IPCServiceConnection
 import com.ct.ipcservice.connection.MessengerConnection
+import com.ct.ipcservice.service.AIDLService
 import com.ct.ipcservice.service.IPCMessengerService
 import com.ct.ipcservice.service.IPCBinderService
 
 /**
  * 传递的数据必须实现Parcelable接口
+ *
+ * 只有在需要不同应用的客户端通过 IPC 方式访问服务，并且希望在服务中进行多线程处理时，您才有必要使用 AIDL。
+ * 如果您无需跨不同应用执行并发 IPC，则应通过实现 Binder 来创建接口；
+ * 或者，如果您想执行 IPC，但不需要处理多线程，请使用 Messenger 来实现接口。
+ * 无论如何，在实现 AIDL 之前，请您务必理解绑定服务。
  * */
 class IPCServiceActivity : AppCompatActivity() {
 
@@ -77,6 +83,10 @@ class IPCServiceActivity : AppCompatActivity() {
             }
             R.id.btn_ipcService_unMessenger -> {
                 unbindService(messengerConnection)
+            }
+
+            R.id.btn_ipcService_aidl -> {
+                startService(Intent(this, AIDLService::class.java))
             }
         }
     }

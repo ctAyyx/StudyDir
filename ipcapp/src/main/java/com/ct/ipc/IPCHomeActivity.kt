@@ -8,6 +8,8 @@ import android.os.*
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.ct.ipc.connection.AIDLServiceConnection
+import kotlinx.android.synthetic.main.activity_ipc_home.view.*
 
 /**
  * 实现跨进程通讯
@@ -15,9 +17,13 @@ import androidx.appcompat.app.AppCompatActivity
  * 1.Binder
  * */
 class IPCHomeActivity : AppCompatActivity() {
+
+    private lateinit var aidlServiceConnection: AIDLServiceConnection
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ipc_home)
+        aidlServiceConnection = AIDLServiceConnection()
     }
 
     fun onClick(view: View) {
@@ -31,6 +37,34 @@ class IPCHomeActivity : AppCompatActivity() {
                 intent.`package` = "com.ct.ipcservice"
                 bindService(intent, IPCServiceConnection(), Context.BIND_AUTO_CREATE)
 
+            }
+
+            R.id.btn_ipcHome_aidl -> {
+                //无法绑定
+                val intent = Intent()
+                intent.component = ComponentName(this, "com.ct.ipcservice.service.AIDLService")
+                bindService(intent, aidlServiceConnection, Context.BIND_AUTO_CREATE)
+            }
+
+            R.id.btn_ipcHome_aidl2 -> {
+                val intent = Intent()
+                intent.action = "com.ct.ipc_aidl_service"
+                //在Android 5.0以上 不能隐式绑定服务
+                //需要明确服务的包名
+                intent.`package` = "com.ct.ipcservice"
+                bindService(intent, aidlServiceConnection, Context.BIND_AUTO_CREATE)
+            }
+
+            R.id.btn_ipcHome_sum -> {
+                aidlServiceConnection.sum()
+            }
+            R.id.btn_ipcHome_obj -> {
+                aidlServiceConnection.obj()
+            }
+            R.id.btn_ipcHome_list -> {
+                aidlServiceConnection.list()
+            }
+            R.id.btn_ipcHome_map -> {
             }
         }
     }

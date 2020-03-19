@@ -30,6 +30,15 @@
                 <action android:name="com.ct.ipc_messenger_service" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".service.AIDLService"
+            android:process=":AIDLService">
+            <intent-filter>
+                <action android:name="com.ct.ipc_aidl_service" />
+            </intent-filter>
+
+        </service>
     </application>
 
 </manifest>
