@@ -21,6 +21,8 @@ versions.glide = '4.11.0'
 versions.retrofit = '2.7.2'
 //versions.rxjava2 = '2.7.2'
 //versions.converter_gson = '2.7.2'
+versions.rxAndroid = '2.1.1'
+versions.rx ='3.0.1'
 versions.leakcanary = '2.2'
 
 def gradle = [:]
@@ -110,6 +112,10 @@ retrofit.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
 retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
 retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
 
+def rx2=[:]
+rx2.android="io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+rx2.rx="io.reactivex.rxjava3:rxjava:$versions.rx"
+
 //Glide
 def glide = [:]
 glide.glide = "com.github.bumptech.glide:glide:$versions.glide"
@@ -141,6 +147,7 @@ deps.lifecycle = lifecycle
 deps.room = room
 deps.work = work
 deps.retrofit = retrofit
+deps.rx2=rx2
 deps.glide = glide
 deps.dagger = dagger
 deps.test = test

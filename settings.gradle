@@ -1,2 +1,5 @@
 include ':app', ':animatorapp', ':baseapp', ':ipcapp', ':ipcserviceapp', ':kt'
 rootProject.name='StudyDir'
+include ':net'
+include ':tool'
+include ':common'
