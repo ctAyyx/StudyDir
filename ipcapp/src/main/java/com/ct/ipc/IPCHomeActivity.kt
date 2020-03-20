@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ct.ipc.connection.AIDLServiceConnection
+import com.ct.ipc.socket.SocketBuilder
 import kotlinx.android.synthetic.main.activity_ipc_home.view.*
 
 /**
@@ -65,6 +66,12 @@ class IPCHomeActivity : AppCompatActivity() {
                 aidlServiceConnection.list()
             }
             R.id.btn_ipcHome_map -> {
+            }
+            R.id.btn_ipcHome_remote -> {
+                aidlServiceConnection.remoteCallback()
+            }
+            R.id.btn_ipcHome_socket -> {
+                SocketBuilder().createClientSocket()
             }
         }
     }

@@ -42,6 +42,13 @@ android {
 
     }
 
+    //需要配置Java8才支持静态接口方法
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+//
+    //kotlinOptions { jvmTarget = 1.8 }
 }
 
 dependencies {
@@ -56,9 +63,9 @@ dependencies {
     api deps.navigation.ui_ktx
 
     //Retrofit
-//    api deps.retrofit.retrofit
-//    api deps.retrofit.gson
-//    api deps.retrofit.rxjava2
+    api deps.retrofit.retrofit
+    api deps.retrofit.gson
+    api deps.retrofit.rxjava2
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

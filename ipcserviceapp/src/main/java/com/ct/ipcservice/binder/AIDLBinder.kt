@@ -1,9 +1,12 @@
 package com.ct.ipcservice.binder
 
 import android.os.Process
+import android.os.RemoteCallbackList
 import android.util.Log
 import com.ct.ipcservice.IPCAidlInterface
+import com.ct.ipcservice.RemoteCallbackAidlInterface
 import com.ct.ipcservice.vo.Rect
+
 
 class AIDLBinder : IPCAidlInterface.Stub() {
     override fun basicTypes(
@@ -92,16 +95,37 @@ class AIDLBinder : IPCAidlInterface.Stub() {
     /**
      * AIDL传递Map数据 map不能使用泛型 需要用in out inout修饰
      * */
-    override fun getInOutMap(map: MutableMap<Any?, Any?>?) {
-        Log.e("TAG", "")
-    }
+//    override fun getInOutMap(map: MutableMap<Any?, Any?>?) {
+//        Log.e("TAG", "")
+//    }
 
-    override fun getOutMap(map: MutableMap<Any?, Any?>?) {
-        Log.e("TAG", "")
-    }
 
-    override fun getInMap(map: MutableMap<Any?, Any?>?) {
-        Log.e("TAG", "")
-    }
+//    override fun getOutMap(map: MutableMap<Any?, Any?>?) {
+//        Log.e("TAG", "")
+//    }
 
+//    override fun getInMap(map: MutableMap<Any?, Any?>?) {
+//        Log.e("TAG", "")
+//    }
+
+    /**
+     * 远程回调接口
+     * */
+
+    //这里需要远程回调接口 来绑定我们的远程回调
+    private val remoteCallbackLIst: RemoteCallbackList<RemoteCallbackAidlInterface> =
+        RemoteCallbackList()
+
+    override fun onCallback(callback: RemoteCallbackAidlInterface?) {
+
+        kotlin.run {
+            remoteCallbackLIst.register(callback)
+            Thread.sleep(5000)
+            callback?.onCallBack("这是回调数据-- ${Thread.currentThread().name}")
+
+            remoteCallbackLIst.unregister(callback)
+
+        }
+
+    }
 }

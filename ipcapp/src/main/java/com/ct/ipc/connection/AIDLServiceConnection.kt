@@ -3,8 +3,10 @@ package com.ct.ipc.connection
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.os.IBinder
+import android.os.RemoteException
 import android.util.Log
 import com.ct.ipcservice.IPCAidlInterface
+import com.ct.ipcservice.RemoteCallbackAidlInterface
 import com.ct.ipcservice.vo.Rect
 
 class AIDLServiceConnection : ServiceConnection {
@@ -60,6 +62,28 @@ class AIDLServiceConnection : ServiceConnection {
         val inoutRectList = mutableListOf(Rect().apply { left = 10 })
         val resultInOut = ipcAidlInterface?.getInOutList(inoutRectList)
         Log.e("TAG", "inout--传递的RectList:$inoutRectList -- 接收到的:$resultInOut")
+    }
+
+    fun map() {
+    }
+
+
+    private val callback: RemoteCallbackAidlInterface =
+        object : RemoteCallbackAidlInterface.Stub() {
+            override fun onCallBack(str: String?) {
+
+                Log.e("TAG", "客户端接收到的回调--$str --${Thread.currentThread().name}")
+            }
+
+        }
+
+    fun remoteCallback() {
+        try {
+            ipcAidlInterface?.onCallback(callback)
+        } catch (e: RemoteException) {
+            Log.e("TAG", "远程链接异常:$e")
+            e.printStackTrace()
+        }
     }
 
 }

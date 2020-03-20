@@ -3,6 +3,7 @@ package com.ct.ipcservice;
 
 // Declare any non-default types here with import statements
 import com.ct.ipcservice.vo.Rect;
+import com.ct.ipcservice.RemoteCallbackAidlInterface;
 interface IPCAidlInterface {
     /**
      * Demonstrates some basic types that you can use as parameters
@@ -41,5 +42,19 @@ interface IPCAidlInterface {
      List<Rect> getInList(in List<Rect> list);
 
      List<Rect> getInOutList(inout List<Rect> list);
+
+     /**
+     * Map
+     */
+//    void getInMap(in HashMap map);
+//
+//    void getOutMap(out HashMap map);
+//
+//    void getInOutMap(inout HashMap map);
+
+    /**
+    *远程回调
+    */
+    void onCallback(RemoteCallbackAidlInterface callback);
 
 }

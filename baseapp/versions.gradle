@@ -19,8 +19,8 @@ versions.work = '2.3.0'
 versions.dagger = '2.27'
 versions.glide = '4.11.0'
 versions.retrofit = '2.7.2'
-versions.rxjava2 = '2.7.2'
-versions.converter_gson = '2.7.2'
+//versions.rxjava2 = '2.7.2'
+//versions.converter_gson = '2.7.2'
 versions.leakcanary = '2.2'
 
 def gradle = [:]
