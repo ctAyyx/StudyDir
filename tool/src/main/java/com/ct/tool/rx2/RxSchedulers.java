@@ -1,4 +1,4 @@
-package com.ct.tool.rx;
+package com.ct.tool.rx2;
 
 import androidx.annotation.NonNull;
 

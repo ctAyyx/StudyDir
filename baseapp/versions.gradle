@@ -24,6 +24,7 @@ versions.retrofit = '2.7.2'
 versions.rxAndroid = '2.1.1'
 versions.rx ='3.0.1'
 versions.leakcanary = '2.2'
+versions.zxing='3.3.1'
 
 def gradle = [:]
 gradle.gradle = "com.android.tools.build:gradle:$versions.gradle"
@@ -129,6 +130,10 @@ dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
 dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
 dagger.android_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"
 
+//Zxing
+def zxing =[:]
+zxing.core="com.google.zxing:core:$versions.zxing"
+
 def leakcanary = [:]
 leakcanary.android = "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"//debugImplementation
 
@@ -150,6 +155,7 @@ deps.retrofit = retrofit
 deps.rx2=rx2
 deps.glide = glide
 deps.dagger = dagger
+deps.zxing = zxing
 deps.test = test
 
 

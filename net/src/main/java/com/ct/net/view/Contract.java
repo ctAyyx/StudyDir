@@ -70,8 +70,9 @@ public interface Contract {
 
         /**
          * 无网络连接
-         *  @param code           数据请求码
-         * */
+         *
+         * @param code 数据请求码
+         */
         void onNoNet(int code);
 
     }
@@ -79,6 +80,6 @@ public interface Contract {
     interface Presenter {
         void dispose();
 
-        void subscribe();
+        void subscribe(Contract.IView iView);
     }
 }

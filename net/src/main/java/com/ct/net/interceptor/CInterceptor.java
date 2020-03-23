@@ -41,8 +41,9 @@ public class CInterceptor implements Interceptor {
         String method = request.method();
         long t1 = System.nanoTime();
         RequestBody requestBody = request.body();
+        StringBuilder sb = new StringBuilder("Request Body [");
         if (requestBody != null) {
-            StringBuilder sb = new StringBuilder("Request Body [");
+
             Buffer buffer = new Buffer();
             requestBody.writeTo(buffer);
             Charset charset = StandardCharsets.UTF_8;
@@ -60,9 +61,10 @@ public class CInterceptor implements Interceptor {
                     sb.append(" (Content-Type = ").append(contentType.toString())
                             .append(",binary ").append(requestBody.contentLength()).append("-byte body omitted)");
             }
-            sb.append("]");
+
 
         }
+        sb.append("]");
         Response response = chain.proceed(request);
         long t2 = System.nanoTime();
 
@@ -82,7 +84,8 @@ public class CInterceptor implements Interceptor {
 
         Log.d("NET:",
                 "\r\n请求地址：" + url + "   请求方法：" + method + "   响应耗时：" + (t2 - t1) / 1e6d
-                        + "\r\n请求状态：" + (response.isSuccessful() ? "success" : "fail") + response.message() + "   请求状态码：" + response.code()
+                        + "请求状态：" + (response.isSuccessful() ? "success " : "fail ") + response.message() + "   请求状态码：" + response.code()
+                        + "\r\n请求实体:" + sb
                         + "\r\n响应实体：" + str
         );
 

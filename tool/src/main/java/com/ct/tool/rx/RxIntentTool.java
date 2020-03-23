@@ -1,271 +1,171 @@
-package com.ct.tool.device;
+package com.ct.tool.rx;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
-import android.text.TextUtils;
+import android.os.Bundle;
 
-
-import androidx.core.content.FileProvider;
+import com.ct.tool.provider.CFileProvider;
 
 import java.io.File;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
-public class FileUtil {
-    private static final String address = "com.ct.baseapp.device.CFileProvider";
-
-    private static String getAppDir() {
-        return Environment.getExternalStorageDirectory() + "/" + "test";//App.applicationContext.getPackageName();
-    }
-
-
-    private static String mkdirs(String dir) {
-        File file = new File(dir);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        return dir;
-    }
-
-    public static File mkFile(String filePath) {
-
-        if (TextUtils.isEmpty(filePath))
-            throw new NullPointerException("文件路径不能为空!");
-
-        File file = new File(filePath);
-
-        if (file.exists() && !file.isDirectory())
-            throw new ClassFormatError("只是目录路径,需要一个文件路径");
-
-        if (file.exists() && !file.delete())
-            throw new SecurityException("文件已存在,并且无法删除");
-
-        return file;
-    }
-
-
-    /*
-     * 在公共目录创建文件(不随应用卸载而删除)
-     * */
-
-    public static String mkEverDir(String fileName) {
-
-        return mkdirs(getAppDir() + "/" + fileName);
-    }
-
-
-    /*
-     *
-     * 创建一个随应用卸载而卸载的文件
-     * */
-    public static File mkAssociatedDir(Context context, String fileName) {
-        return context.getExternalFilesDir(fileName);
-    }
-
-
-    /*
-     * 获取缓存目录
-     * */
-    public static File getCacheDir(Context context) {
-
-        if (DeviceUtil.sDCardIsAvailable())
-            return context.getExternalCacheDir();
-        return context.getCacheDir();
-    }
+/**
+ * @author tamsiree
+ * @date 2016/1/24
+ */
+public class RxIntentTool {
 
     /**
-     * 获取文件创建时间
-     */
-    public static String getMkTime(File file) {
-        return new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)
-                .format(new Date(file.lastModified()));
-    }
-
-
-    /**
-     * 判断一个文件是否存在指定目录下
-     */
-    public static boolean checkFile(File dir, String fileName) {
-        if (!dir.isDirectory()) {
-            return false;
-        }
-
-        File[] files = dir.listFiles();
-
-        for (File file : files) {
-            if (!file.isDirectory()) {
-                if (fileName.equals(file.getName()))
-                    return true;
-            }
-
-        }
-        return false;
-    }
-
-
-    /**
-     * 获取缓存大小
-     * <p>
-     * 通过Context.getExternalFilesDir()方法可以获取到 SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
-     * 通过Context.getExternalCacheDir()方法可以获取到 SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
-     */
-    public static String getCacheSize(Context context) {
-        long fileSize = 0;
-        String cacheSize = "0KB";
-
-        File fileDir = context.getFilesDir();
-        File cacheDir = context.getCacheDir();
-        File externalCacheDir = context.getExternalCacheDir();
-
-        fileSize += getDirSize(fileDir);
-        fileSize += getDirSize(cacheDir);
-        fileSize += getDirSize(externalCacheDir);
-        if (fileSize > 0)
-            cacheSize = formatFileSize(fileSize);
-        return cacheSize;
-
-    }
-
-    /**
-     * 计算目录文件大小
-     */
-    public static long getDirSize(File dir) {
-        if (dir == null)
-            return 0;
-        if (!dir.isDirectory())
-            return 0;
-
-        long dirSize = 0;
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isFile())
-                dirSize += file.length();
-            else if (file.isDirectory()) {
-                dirSize += file.length();
-                dirSize += getDirSize(file);
-            }
-        }
-        return dirSize;
-    }
-
-
-    /**
-     * 转换文件大小
-     */
-    public static String formatFileSize(long fileSize) {
-        DecimalFormat df = new DecimalFormat("#.00");
-        String fileSizeString;
-        if (fileSize < 1024)
-            fileSizeString = df.format((double) fileSize) + "B";
-        else if (fileSize < 1024 * 1024)
-            fileSizeString = df.format((double) fileSize / 1024) + "KB";
-        else if (fileSize < 1024 * 1024 * 1024)
-            fileSizeString = df.format((double) fileSize / (1024 * 1024)) + "MB";
-        else
-            fileSizeString = df.format((double) fileSize / (1024 * 1024 * 1024)) + "G";
-        return fileSizeString;
-    }
-
-
-    /**
-     * 清空应用缓存
-     */
-    public static void cleanAppCache(Context context) {
-        cleanInternalCache(context);
-        cleanExternalCache(context);
-        cleanFiles(context);
-    }
-
-    /**
-     * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache)
-     */
-    public static void cleanInternalCache(Context context) {
-        deleteFilesByDirectory(context.getCacheDir());
-    }
-
-    /**
-     * 清除/data/data/com.xxx.xxx/files下的内容
-     */
-    public static void cleanFiles(Context context) {
-        deleteFilesByDirectory(context.getFilesDir());
-    }
-
-    /**
-     * * 清除外部cache下的内容(/mnt/sdcard/android/data/com.xxx.xxx/cache)
-     */
-    public static void cleanExternalCache(Context context) {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            deleteFilesByDirectory(context.getExternalCacheDir());
-        }
-    }
-
-    /**
-     * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理
-     */
-    public static void deleteFilesByDirectory(File fileDir) {
-        if (fileDir != null && fileDir.exists() && fileDir.isDirectory()) {
-            File[] files = fileDir.listFiles();
-            for (File file : files) {
-                if (file.isDirectory())
-                    deleteFilesByDirectory(file);
-                file.delete();
-            }
-            fileDir.delete();
-        }
-    }
-
-    //==================================================   适配7.0  ====================================================================//
-
-    /**
-     * 获取Uri
+     * 获取安装App(支持7.0)的意图
      *
      * @param context
-     * @param file
+     * @param filePath
+     * @return
      */
-    public static Uri getUriForFile(Context context, File file) {
-        Uri fileUri;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            fileUri = getUriForFile24(context, file);
-        else
-            fileUri = Uri.fromFile(file);
-        return fileUri;
-
-    }
-
-    /**
-     * 获取Uri(API>=24)
-     */
-    public static Uri getUriForFile24(Context context, File file) {
-
-        return FileProvider.getUriForFile(context, context.getPackageName() + ".device.CFileProvider", file);
-
-    }
-
-    /**
-     * 设置Intent的grant权限(API>=24)
-     */
-    public static void setIntentDataAndType(Context context, Intent intent, String type, File file, boolean writeAble) {
+    public static Intent getInstallAppIntent(Context context, String filePath) {
+        //apk文件的本地路径
+        File apkfile = new File(filePath);
+        if (!apkfile.exists()) {
+            return null;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri contentUri = RxFileTool.getUriForFile(context, apkfile);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.setDataAndType(getUriForFile(context, file), type);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            if (writeAble)
-                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-
-        } else
-            intent.setDataAndType(Uri.fromFile(file), type);
-
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        return intent;
     }
 
+    /**
+     * 获取卸载App的意图
+     *
+     * @param packageName 包名
+     * @return 意图
+     */
+    public static Intent getUninstallAppIntent(String packageName) {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        intent.setData(Uri.parse("package:" + packageName));
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
 
-    //==================================================   适配7.0  ====================================================================//
+    /**
+     * 获取打开App的意图
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return 意图
+     */
+    public static Intent getLaunchAppIntent(Context context, String packageName) {
+        return getIntentByPackageName(context, packageName);
+    }
+
+    /**
+     * 根据包名获取意图
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return 意图
+     */
+    private static Intent getIntentByPackageName(Context context, String packageName) {
+        return context.getPackageManager().getLaunchIntentForPackage(packageName);
+    }
+
+    /**
+     * 获取App信息的意图
+     *
+     * @param packageName 包名
+     * @return 意图
+     */
+    public static Intent getAppInfoIntent(String packageName) {
+        Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+        return intent.setData(Uri.parse("package:" + packageName));
+    }
+
+    /**
+     * 获取App信息分享的意图
+     *
+     * @param info 分享信息
+     * @return 意图
+     */
+    public static Intent getShareInfoIntent(String info) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        return intent.putExtra(Intent.EXTRA_TEXT, info);
+    }
+
+    /**
+     * 获取其他应用的Intent
+     *
+     * @param packageName 包名
+     * @param className   全类名
+     * @return 意图
+     */
+    public static Intent getComponentNameIntent(String packageName, String className) {
+        return getComponentNameIntent(packageName, className, null);
+    }
+
+    /**
+     * 获取其他应用的Intent
+     *
+     * @param packageName 包名
+     * @param className   全类名
+     * @return 意图
+     */
+    public static Intent getComponentNameIntent(String packageName, String className, Bundle bundle) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (bundle != null) intent.putExtras(bundle);
+        ComponentName cn = new ComponentName(packageName, className);
+        intent.setComponent(cn);
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    /**
+     * 获取应用详情页面具体设置 intent
+     *
+     * @return
+     */
+    public static Intent getAppDetailsSettingsIntent(Context mContext) {
+        Intent localIntent = new Intent();
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= 9) {
+            localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            localIntent.setData(Uri.fromParts("package", mContext.getPackageName(), null));
+        } else if (Build.VERSION.SDK_INT <= 8) {
+            localIntent.setAction(Intent.ACTION_VIEW);
+            localIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+            localIntent.putExtra("com.android.settings.ApplicationPkgName", mContext.getPackageName());
+        }
+        return localIntent;
+    }
+
+    /**
+     * 获取应用详情页面具体设置 intent
+     *
+     * @param packageName 包名
+     * @return intent
+     */
+    public static Intent getAppDetailsSettingsIntent(String packageName) {
+        Intent localIntent = new Intent();
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= 9) {
+            localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            localIntent.setData(Uri.fromParts("package", packageName, null));
+        } else if (Build.VERSION.SDK_INT <= 8) {
+            localIntent.setAction(Intent.ACTION_VIEW);
+            localIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+            localIntent.putExtra("com.android.settings.ApplicationPkgName", packageName);
+        }
+        return localIntent;
+    }
 
 
     //==================================================  打开文件  ===================================================================//
+    private static String address = "";
+
     // android获取一个用于打开HTML文件的intent
     public static Intent getHtmlFileIntent(Context context, File file) {
 

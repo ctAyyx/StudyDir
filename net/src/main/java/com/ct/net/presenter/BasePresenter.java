@@ -7,8 +7,7 @@ import android.util.SparseArray;
 
 import com.ct.net.view.Contract;
 import com.ct.net.service.ServiceNet;
-import com.ct.tool.device.DeviceUtil;
-import com.ct.tool.rx.RxSchedulers;
+import com.ct.tool.rx2.RxSchedulers;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -35,10 +34,8 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
 
     private Context context;
 
-    public BasePresenter(Contract.IView iView, Context context) {
-        this.iView = iView;
+    public BasePresenter(Context context) {
         initApi();
-
         if (map == null)
             map = new SparseArray<>();
         this.context = context.getApplicationContext();
@@ -53,13 +50,18 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
 
 
     @Override
-    public void subscribe() {
+    public void subscribe(Contract.IView iView) {
+        this.iView = iView;
 
     }
 
     @Override
     public void dispose() {
         cancel();
+    }
+
+    public void dispose(int code) {
+        cancel(code);
     }
 
     /**
@@ -80,7 +82,6 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
 
     protected <T> void onFilter(Observable<T> observable, final int code, String msg) {
 
-        iView.showProgress(code, msg);
         final Disposable d = observable.compose(RxSchedulers.<T>io_main())
                 .subscribe(new Consumer<T>() {
                                @Override
@@ -91,8 +92,11 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
                         new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-                                iView.onException(code, throwable);
-                                iView.hideProgress(code);
+                                if (iView != null) {
+                                    iView.onException(code, throwable);
+                                    iView.hideProgress(code);
+                                }
+
                             }
                         },//onError
 
@@ -106,12 +110,17 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
                         new Consumer<Disposable>() {
                             @Override
                             public void accept(Disposable disposable) throws Exception {
+                                if (iView != null) {
+                                    iView.showProgress(code, msg);
+                                    iView.onBefore(code);
+                                }
+
                                 map.put(code, disposable);
-                                iView.onBefore(code);
 
                                 //在这里判断网络是否连接
                                 if (!DeviceUtil.networkIsConnected(context)) {
-                                    iView.onNoNet(code);
+                                    if (iView != null)
+                                        iView.onNoNet(code);
                                     cancel(code, false
                                     );
                                 }
@@ -125,6 +134,8 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
 
 
     protected <T> void onNext(T response, int code) {
+        if (iView == null)
+            return;
         if (response == null)
             iView.onError(code, "BaseResponse is null");
         else
@@ -133,7 +144,7 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
         iView.hideProgress(code);
     }
 
-    public void cancel() {
+    private void cancel() {
 
         for (int i = 0; i < map.size(); i++) {
             Disposable disposable = map.valueAt(i);
@@ -143,22 +154,26 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
 
         map = null;
 
-        iView.onAfter(-1, true);
+        if (iView != null)
+            iView.onAfter(-1, true);
 
     }
 
-    public void cancel(int code) {
+    private void cancel(int code) {
         cancel(code, true);
     }
 
-    public void cancel(int code, boolean isCancelByUser) {
+    private void cancel(int code, boolean isCancelByUser) {
         Disposable disposable = map.get(code);
 
         if (disposable != null && !disposable.isDisposed())
             disposable.dispose();
 
+        if (iView != null) {
+            iView.onAfter(code, isCancelByUser);
+            iView.hideProgress(code);
+        }
 
-        iView.onAfter(code, isCancelByUser);
     }
 
 }
