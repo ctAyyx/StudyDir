@@ -7,6 +7,8 @@ import android.util.SparseArray;
 
 import com.ct.net.view.Contract;
 import com.ct.net.service.ServiceNet;
+import com.ct.tool.rx.RxDeviceTool;
+import com.ct.tool.rx.RxNetTool;
 import com.ct.tool.rx2.RxSchedulers;
 
 import io.reactivex.Observable;
@@ -32,7 +34,7 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
 
     protected SparseArray<Disposable> map;
 
-    private Context context;
+    protected Context context;
 
     public BasePresenter(Context context) {
         initApi();
@@ -118,7 +120,7 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
                                 map.put(code, disposable);
 
                                 //在这里判断网络是否连接
-                                if (!DeviceUtil.networkIsConnected(context)) {
+                                if (!RxNetTool.isNetworkAvailable(context)) {
                                     if (iView != null)
                                         iView.onNoNet(code);
                                     cancel(code, false

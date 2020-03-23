@@ -11,20 +11,35 @@ import com.ct.net.test.BannerPresenter;
 import com.ct.net.view.Contract;
 
 public class NetHomeActivity extends AppCompatActivity implements Contract.IView {
+    private BannerPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_net);
-
+        presenter = new BannerPresenter(this);
+        presenter.subscribe(this);
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_net_01:
-                BannerPresenter presenter = new BannerPresenter(this);
-                //presenter.subscribe(this);
+
+
                 presenter.getBanner(200);
+
+                break;
+            case R.id.btn_net_02:
+                presenter.upFile(200);
+                break;
+            case R.id.btn_net_03:
+                presenter.upFile2(200);
+                break;
+            case R.id.btn_net_04:
+                presenter.upFile3(200);
+                break;
+            case R.id.btn_net_05:
+                presenter.upFile4(200);
                 break;
         }
     }
