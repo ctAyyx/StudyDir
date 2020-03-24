@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  在Android 5.0以后   -->
+    <style name="TransitionTheme21" parent="BaseTheme">
+        <!--    开启窗体内容过渡    -->
+        <item name="android:windowActivityTransitions">true</item>
+        <!--    设置窗体进入/退出的过渡动画 动画的XML文件实在transition目录下    -->
+        <!--    当前界面进入动画    -->
+        <item name="android:windowEnterTransition">@transition/transition_fade</item>
+        <!--     前一个界面退出动画   -->
+        <item name="android:windowExitTransition">@transition/transition_fade</item>
+        <!--     前一个界面进入动画   -->
+        <item name="android:windowReenterTransition">@transition/transition_fade</item>
+        <!--     当前界面退出动画   -->
+        <item name="android:windowReturnTransition">@transition/transition_fade</item>
+        <!--   设置共享元素的过渡动画     -->
+<!--        <item name="android:windowSharedElementEnterTransition"></item>-->
+<!--        <item name="android:windowSharedElementExitTransition"></item>-->
+<!--        <item name="android:windowSharedElementReenterTransition"></item>-->
+<!--        <item name="android:windowSharedElementReturnTransition"></item>-->
+    </style>
+</resources>

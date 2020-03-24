@@ -22,7 +22,7 @@ import java.util.List;
  * @author tamsiree
  * @date 2016/1/24
  */
-public class RxApp {
+public class RxAppTool {
 
     /**
      * 安装App(支持7.0)

@@ -11,7 +11,14 @@ import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
+import androidx.appcompat.widget.ActionBarOverlayLayout;
+import androidx.appcompat.widget.ContentFrameLayout;
+import androidx.appcompat.widget.FitWindowsLinearLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 
@@ -21,7 +28,7 @@ import java.util.Stack;
 /**
  * 参考https://tamsiree.com/TechnicalResearch/Android/RxTool/Wiki/RxTool-Wiki/#RxTool%EF%BC%88%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%EF%BC%89
  */
-public class RxActivityManager {
+public class RxActivityTool {
     private static Stack<Activity> activityStack;
 
     /**
@@ -53,7 +60,52 @@ public class RxActivityManager {
     }
 
 
+    /**
+     * 全屏界面
+     */
+    public static void switchFullScreen(Activity activity, boolean isFull) {
 
+        if (isFull) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+    }
+
+    /**
+     * 获取我们的布局
+     */
+    public static View getOurLayout(Activity activity) {
+        ContentFrameLayout contentFrameLayout = getOurLayoutParent(activity);
+        if (contentFrameLayout != null)
+            return contentFrameLayout.getChildAt(0);
+        return null;
+    }
+
+    /**
+     * 获取我们布局的父布局
+     */
+    public static ContentFrameLayout getOurLayoutParent(Activity activity) {
+        FrameLayout decorView = (FrameLayout) activity.getWindow().getDecorView();
+        LinearLayout linearLayout = (LinearLayout) decorView.getChildAt(0);
+        FrameLayout frameLayout = null;
+        //在这里写循环 是为了防止在21以下设置状态栏颜色添加了一个View
+        for (int i = 0; i < linearLayout.getChildCount(); i++) {
+            if (linearLayout.getChildAt(i) instanceof FrameLayout) {
+                frameLayout = (FrameLayout) linearLayout.getChildAt(i);
+                break;
+            }
+        }
+
+        ViewGroup viewGroup = (ViewGroup) frameLayout.getChildAt(0);
+        ContentFrameLayout contentFrameLayout = null;
+        if (viewGroup instanceof ActionBarOverlayLayout)
+            contentFrameLayout = (ContentFrameLayout) viewGroup.getChildAt(0);
+        else if (viewGroup instanceof FitWindowsLinearLayout)
+            contentFrameLayout = (ContentFrameLayout) viewGroup.getChildAt(1);
+        return contentFrameLayout;
+
+    }
 
     /**
      * 结束指定的Activity
@@ -78,8 +130,6 @@ public class RxActivityManager {
             }
         }
     }
-
-
 
 
     /**

@@ -17,5 +17,12 @@
             android:layout_height="wrap_content"
             android:text="ValueAnimator" />
 
+
+        <Button
+            android:id="@+id/btn_animHome_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Activity转场动画" />
+
     </LinearLayout>
 </layout>

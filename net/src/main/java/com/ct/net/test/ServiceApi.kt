@@ -3,6 +3,7 @@ package com.ct.net.test
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 /**
@@ -81,4 +82,9 @@ interface ServiceApi {
     @Multipart
     @POST("/api/v2/banner")
     fun upFile4(@Part files: MutableList<MultipartBody.Part>, @FieldMap map: MutableMap<String, String>): Observable<BaseResponse<List<BannerModel>>>
+
+    @Streaming
+    @GET
+    fun downApk(@Url url: String): Observable<ResponseBody>
+
 }

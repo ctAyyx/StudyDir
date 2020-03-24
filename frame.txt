@@ -30,3 +30,5 @@
   LeakCanary
 16.滑动返回
   BGASwipeBackLayout-Android
+17.渠道统计
+  OpenInstall

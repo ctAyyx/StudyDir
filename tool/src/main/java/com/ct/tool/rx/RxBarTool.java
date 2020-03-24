@@ -5,11 +5,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
+
+import androidx.annotation.ColorRes;
+import androidx.appcompat.widget.ActionBarOverlayLayout;
+import androidx.appcompat.widget.ContentFrameLayout;
+import androidx.appcompat.widget.FitWindowsLinearLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -168,12 +177,61 @@ public class RxBarTool {
 
 
     /**
-     * 修改状态栏为全透明
+     * 修改状态栏颜色，支持4.4以上版本
+     *
+     * @param activity
+     * @param colorId
+     */
+    public static void setStatusBarColor(Activity activity, @ColorRes int colorId) {
+        Window window = activity.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(activity.getResources().getColor(colorId));
+        } else {
+            //使用SystemBarTint库使4.4版本状态栏变色，需要先将状态栏设置为透明
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            LinearLayout linearLayout = (LinearLayout) ((FrameLayout) window.getDecorView()).getChildAt(0);
+            View view = new View(activity);
+            view.setBackgroundColor(activity.getResources().getColor(colorId));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+
+            view.setLayoutParams(params);
+            linearLayout.addView(view, 0);
+        }
+    }
+
+    /**
+     * 设置状态栏的颜色透明
+     * 不要再布局中使用android:fitsSystemWindows="true"
+     * <p>
+     * 使用此方法后 会导致布局上移到状态栏 这是由于没有设置android:fitsSystemWindows="true"的原因
+     * 需要在布局文件中手动设置一个与状态栏高度一致的控件 或者 padding
+     *
+     * @param activity
+     */
+    public static void setStatusBarTransparent(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+
+
+    /**
+     * 沉浸式
+     * 透明化状态栏
+     * 隐藏导航栏
      *
      * @param activity
      */
     @TargetApi(19)
-    public static void transparencyBar(Activity activity) {
+    public static void setImmersion(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -188,28 +246,6 @@ public class RxBarTool {
             Window window = activity.getWindow();
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-    }
-
-    /**
-     * 修改状态栏颜色，支持4.4以上版本
-     *
-     * @param activity
-     * @param colorId
-     */
-    public static void setStatusBarColor(Activity activity, int colorId) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-//      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            //         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(activity.getResources().getColor(colorId));
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //使用SystemBarTint库使4.4版本状态栏变色，需要先将状态栏设置为透明
-            transparencyBar(activity);
-//            SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-//            tintManager.setStatusBarTintEnabled(true);
-//            tintManager.setStatusBarTintResource(colorId);
         }
     }
 

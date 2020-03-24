@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ct.animator">
 
@@ -5,8 +6,13 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".AnimatorHomeActivity">
+        android:theme="@style/TransitionTheme21">
+        <activity android:name=".ui.TransitionActivity02"/>
+        <activity android:name=".ui.TransitionActivity01"
+           />
+        <activity android:name=".AnimatorHomeActivity"
+
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

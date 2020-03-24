@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light">
+
+    </style>
+
+    <!-- @android:style/Animation.Activity   -->
+    <style name="TransitionTheme" parent="BaseTheme">
+        <item name="android:windowEnterAnimation">@anim/slide_bottom_enter</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom_exit</item>
+
+    </style>
+
+    <style name="TransitionTheme21" parent="BaseTheme">
+
+    </style>
+</resources>

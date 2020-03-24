@@ -103,4 +103,14 @@ class BannerPresenter(context: Context) :
         val params = mutableMapOf(Pair("name", ""), Pair("password", ""))
         onFilter(serviceApi.upFile4(mutableListOf(filePart, filePart2), params), code)
     }
+
+
+    /**
+     * 文件下载 http://3g.163.com/links/4636
+     * */
+    fun downApk(code: Int) {
+
+        serviceApi.downApk("http://3g.163.com/links/4636")
+
+    }
 }

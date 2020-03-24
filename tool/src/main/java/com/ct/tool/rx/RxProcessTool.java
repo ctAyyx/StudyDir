@@ -146,4 +146,35 @@ public class RxProcessTool {
         }
         return true;
     }
+
+
+    /**
+     * 获取当前进程名称
+     */
+    public static String getCurrentProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processes = activityManager.getRunningAppProcesses();
+
+        for (ActivityManager.RunningAppProcessInfo processInfo : processes) {
+            if (processInfo.pid == pid)
+                return processInfo.processName;
+        }
+
+        return null;
+    }
+
+    /**
+     * 判断当前进程是否是主进程
+     */
+    public static boolean isMainProcess(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return context.getApplicationInfo().packageName.equals(appProcess.processName);
+            }
+        }
+        return false;
+    }
 }

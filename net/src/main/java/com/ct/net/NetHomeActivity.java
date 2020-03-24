@@ -10,6 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ct.net.test.BannerPresenter;
 import com.ct.net.view.Contract;
 
+/**
+ * 对Retrofit的使用测试
+ * <p>
+ * 普通请求测试
+ * 文件上传测试
+ * 文件下载测试 http://3g.163.com/links/4636
+ */
 public class NetHomeActivity extends AppCompatActivity implements Contract.IView {
     private BannerPresenter presenter;
 

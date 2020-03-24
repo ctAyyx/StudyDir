@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.TransitionActivity01">
+
+    <Button
+        android:id="@+id/btn_transition01_common"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通用转场动画" />
+
+    <Button
+        android:id="@+id/btn_transition01_21"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="5.0转场动画" />
+
+    <Button
+        android:id="@+id/btn_transition01_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="5.0共享元素动画" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_transition01_share"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/share" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_transition01_share"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#FF0000"
+        android:transitionName="text_share" />
+
+
+</LinearLayout>

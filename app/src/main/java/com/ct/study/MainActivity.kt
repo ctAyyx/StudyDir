@@ -14,6 +14,10 @@ import androidx.appcompat.widget.ActionBarOverlayLayout
 import androidx.appcompat.widget.ContentFrameLayout
 import androidx.appcompat.widget.FitWindowsLinearLayout
 import androidx.core.view.marginTop
+import com.ct.tool.rx.RxActivityTool
+import com.ct.tool.rx.RxBarTool
+import com.ct.tool.rx.RxDimens
+import com.ct.tool.rx.RxTool
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -26,6 +30,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //RxBarTool.setStatusBarColor(this,R.color.colorPrimaryDark)
+
+
+
+        btn_app_bar.setOnClickListener {
+            //changeStatusBar()
+            Log.e("TAG","当前布局RootView："+RxActivityTool.getOurLayout(this))
+        }
         btn_app_layout.setOnClickListener {
             layout()
         }
@@ -42,6 +54,14 @@ class MainActivity : AppCompatActivity() {
 //        }
 
     }
+
+
+    private fun changeStatusBar() {
+         RxBarTool.setStatusBarColor(this, android.R.color.holo_green_dark)
+
+
+    }
+
 
     private fun layout() {
 
@@ -181,11 +201,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun setStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //大于21
-        }
-    }
 
 
     //1.关于状态栏
@@ -195,7 +210,7 @@ class MainActivity : AppCompatActivity() {
     //在5.0以后 默认是设置了状态栏的颜色,如果透明化了状态栏 则需要先移除透明状态栏标记再调用 window.statusBarColor
 
     //2.关于DecorView
-    //在Android5.0(21)以后,DecorView包含一个LinearLayout布局和View,View表示状态栏如果透明化状态啦则只包含一个LinearLayout
+    //在Android5.0(21)以后,DecorView包含一个LinearLayout布局和View,View表示状态,栏如果透明化状态啦则只包含一个LinearLayout
     //在Android5.0(21)以前,DecorView只包含一个LinearLayout布局,状态栏的高度是该LinearLayout设置的padding
     //LinearLayout布局包含一个ViewSub(没有高度)和 FrameLayout
     //FrameLayout布局只包含一个ActionBarOverlayLayout,但是在取消系统ActionBar的情况下则只包含一个FitWindowsLinearLayout
