@@ -28,28 +28,28 @@ public class NetHomeActivity extends AppCompatActivity implements Contract.IView
         presenter.subscribe(this);
     }
 
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_net_01:
-
-
-                presenter.getBanner(200);
-
-                break;
-            case R.id.btn_net_02:
-                presenter.upFile(200);
-                break;
-            case R.id.btn_net_03:
-                presenter.upFile2(200);
-                break;
-            case R.id.btn_net_04:
-                presenter.upFile3(200);
-                break;
-            case R.id.btn_net_05:
-                presenter.upFile4(200);
-                break;
-        }
-    }
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.btn_net_01:
+//
+//
+//                presenter.getBanner(200);
+//
+//                break;
+//            case R.id.btn_net_02:
+//                presenter.upFile(200);
+//                break;
+//            case R.id.btn_net_03:
+//                presenter.upFile2(200);
+//                break;
+//            case R.id.btn_net_04:
+//                presenter.upFile3(200);
+//                break;
+//            case R.id.btn_net_05:
+//                presenter.upFile4(200);
+//                break;
+//        }
+//    }
 
     @Override
     public void showProgress(int code, String msg) {

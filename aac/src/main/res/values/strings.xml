@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AACDemo</string>
+    <string name="str_bind">使用DataBinding绑定资源文件</string>
+    <string name="str_bind_name">使用占位符显示: %s : %s</string>
+    <string name="str_bind_msg">姓名:$s . $s 体重:$d</string>
+    <string name="red">FF0000</string>
+    <string name="yellow">00FF00</string>
+</resources>

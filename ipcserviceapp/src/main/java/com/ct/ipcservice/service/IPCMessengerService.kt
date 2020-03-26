@@ -9,6 +9,7 @@ import android.os.Message
 import android.os.Messenger
 import android.util.Log
 import com.ct.baseapp.util.AppUtil
+import com.ct.tool.rx.RxProcessTool
 
 /**
  * 使用 Messenger实现跨进程通讯
@@ -22,7 +23,7 @@ class IPCMessengerService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         Log.e(
             "TAG",
-            "IPCMessengerService onBind---${AppUtil.getCurrentProcessName(this)} --${intent}"
+            "IPCMessengerService onBind---${RxProcessTool.getCurrentProcessName(this)} --${intent}"
         )
         //创建Messenger 并持有IncomingHandler
         mMessenger = Messenger(IncomingHandler(this))

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:context=".BindActivity">
+
+    <data>
+        <!--
+        当类名冲突时 可以使用alias重命名
+        <import type="android.view.View"/>
+            <import type="com.example.real.estate.View"
+                    alias="Vista"/>
+        -->
+        <variable
+            name="user"
+            type="com.ct.aac.vo.User" />
+
+        <!--    针对集合   < 符号要用 &lt; 表示  -->
+        <import type="java.util.Map" />
+
+        <import type="java.util.List" />
+
+        <variable
+            name="map"
+            type="Map&lt;String,String>" />
+
+        <variable
+            name="list"
+            type="List&lt;String>" />
+        <!--    事件绑定    -->
+        <variable
+            name="handler"
+            type="com.ct.aac.handler.BindHandler" />
+
+
+        <!--      可观察数据  -->
+        <variable
+            name="model"
+            type="com.ct.aac.vo.ObservableModel" />
+    </data>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F0F0F0"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@{@color/color_green}"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="简单的数据绑定" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{user.firstName}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text='@{"字段拼接:"+user.lastName}' />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text='@{user.age >20 ? "大于20":"小于等于20"}' />
+
+                <!--
+                针对 Null的判断
+                android:text="@{user.job ==null ? user.firstName:user.job }"
+                或
+                 android:text="@{user.job ?? user.firstName}"
+                      -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{user.job ?? user.firstName}" />
+
+                <!--       针对Map的取值
+                       android:text="@{map[`name`]}"
+                       或
+                       android:text='@{map["name"]}'
+                       或
+                        android:text="@{map.name}"
+                      -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{map.name}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{list[0]}" />
+
+                <!--        针对文件资源的访问        -->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+
+                    android:text="@{@string/str_bind}"
+                    android:textColor="@{@color/color_red}" />
+                <!--          占位符使用 和 事件绑定
+                    如果表达式中的方法签名与监听器对象中的方法签名完全一致
+                      android:onClick="@{handler::onClick}"
+                    如果监听器对象不需要 表达式中的方法签名
+                     android:onClick="@{()->handler.onClick(user)}"
+                    如果监听器对象需要 表达式中的方法签名并同时传递其他参数
+                      android:onClick="@{(view)->handler.onClick(view,user)}"
+                     PS: 表达式中的方法签名要么都不要显示,要不都要显示
+                     如果监听的事件返回类型不是 void 的值，则表达式也必须返回相同类型的值
+                    -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{(view)->handler.onClick(view,user)}"
+                    android:onLongClick="@{handler::onLongClick}"
+                    android:text="@{@string/str_bind_name(user.firstName,user.lastName)}"
+                    android:textColor="@{@color/color_red}" />
+
+
+                <!--          包含      -->
+                <include
+                    layout="@layout/layout_user_name"
+                    app:user="@{user}" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@{@color/color_green}"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="可观察数据显示" />
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{()->handler.onObservableClick(model)}"
+                    android:padding="8dp"
+                    android:text="@{model.firstName}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{model.customObservableModel.firstName}" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@{@color/color_green}"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="绑定适配器" />
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/abc_vector_test"
+                    android:tint="@{@color/color_red}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:background="@color/color_green"
+                    android:paddingLeft="@{@dimen/dp_20}"
+                    android:text="自定义逻辑-定义PaddingLeft" />
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="@{handler::changeLayout}"
+                    android:onLayoutChange="@{()->handler.onLayoutChange()}"
+                    android:paddingLeft="20dp"
+                    android:scaleType="centerCrop"
+
+                    app:imageUrl="@{user.icon}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@{user.age>20 ? @string/red : @string/yellow}"
+                    android:drawablePadding="50dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@{@color/color_green}"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="数据双向绑定(未测试)" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@{model.isChecked()}"
+                    android:text="@{model.firstName}"
+
+                    />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->handler.bothWayBind(model)}"
+                    android:text="双向绑定" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

@@ -17,6 +17,7 @@ import com.ct.ipcservice.service.AIDLService
 import com.ct.ipcservice.service.IPCMessengerService
 import com.ct.ipcservice.service.IPCBinderService
 import com.ct.ipcservice.service.SocketService
+import com.ct.tool.rx.RxProcessTool
 
 /**
  * 多进程的缺点
@@ -55,7 +56,7 @@ class IPCServiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ipc_service)
-        Log.e("TAG", "IPCServiceActivity当前进程名:${AppUtil.getCurrentProcessName(this)}")
+        Log.e("TAG", "IPCServiceActivity当前进程名:${RxProcessTool.getCurrentProcessName(this)}")
         serviceConnection = IPCServiceConnection()
         messengerConnection = MessengerConnection()
         clientMessenger = Messenger(clientMessengerHandler)

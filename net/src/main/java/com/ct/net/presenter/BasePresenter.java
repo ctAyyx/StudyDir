@@ -50,6 +50,10 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
                 .create(initServiceApi());
     }
 
+    public A getServiceApi() {
+        return serviceApi;
+    }
+
 
     @Override
     public void subscribe(Contract.IView iView) {

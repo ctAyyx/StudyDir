@@ -62,6 +62,17 @@ dependencies {
     api deps.navigation.fragment_ktx
     api deps.navigation.ui_ktx
 
+    //ViewModel
+    api deps.lifecycle.viewmodel_ktx
+    api deps.lifecycle.livedata_ktx
+    api deps.lifecycle.runtime_ktx
+    api deps.lifecycle.java8_ktx
+    api deps.lifecycle.savedstate
+
+    //Paging
+    api deps.paging.runtime_ktx
+
+
     //Retrofit
     api deps.retrofit.retrofit
     api deps.retrofit.gson
@@ -72,6 +83,10 @@ dependencies {
 
     //Zxing
     api deps.zxing.core
+
+    //Glide
+    api deps.glide.glide
+    kapt deps.glide.compiler
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
