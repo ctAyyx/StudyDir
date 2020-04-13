@@ -67,7 +67,7 @@ public class NetHomeActivity extends AppCompatActivity implements Contract.IView
     }
 
     @Override
-    public void onError(int code, String msg) {
+    public void onError(int code, String msg, int errorCode) {
         Log.e("TAG", "onError" + code + "---" + msg);
     }
 
@@ -86,8 +86,5 @@ public class NetHomeActivity extends AppCompatActivity implements Contract.IView
         Log.e("TAG", "onAfter" + code + "---" + isCancelByUser);
     }
 
-    @Override
-    public void onNoNet(int code) {
-        Log.e("TAG", "onNoNet" + code);
-    }
+
 }

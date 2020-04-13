@@ -8,17 +8,15 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
-import androidx.appcompat.widget.ActionBarOverlayLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.ContentFrameLayout;
-import androidx.appcompat.widget.FitWindowsLinearLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 
@@ -85,25 +83,29 @@ public class RxActivityTool {
     /**
      * 获取我们布局的父布局
      */
-    public static ContentFrameLayout getOurLayoutParent(Activity activity) {
-        FrameLayout decorView = (FrameLayout) activity.getWindow().getDecorView();
-        LinearLayout linearLayout = (LinearLayout) decorView.getChildAt(0);
-        FrameLayout frameLayout = null;
-        //在这里写循环 是为了防止在21以下设置状态栏颜色添加了一个View
-        for (int i = 0; i < linearLayout.getChildCount(); i++) {
-            if (linearLayout.getChildAt(i) instanceof FrameLayout) {
-                frameLayout = (FrameLayout) linearLayout.getChildAt(i);
-                break;
-            }
-        }
+    public static ContentFrameLayout getOurLayoutParent(@NonNull Activity activity) {
+//        FrameLayout decorView = (FrameLayout) activity.getWindow().getDecorView();
+//        LinearLayout linearLayout = (LinearLayout) decorView.getChildAt(0);
+//        FrameLayout frameLayout = null;
+//        //在这里写循环 是为了防止在21以下设置状态栏颜色添加了一个View
+//        for (int i = 0; i < linearLayout.getChildCount(); i++) {
+//            if (linearLayout.getChildAt(i) instanceof FrameLayout) {
+//                frameLayout = (FrameLayout) linearLayout.getChildAt(i);
+//                break;
+//            }
+//        }
+//
+//        ViewGroup viewGroup = (ViewGroup) frameLayout.getChildAt(0);
+//        ContentFrameLayout contentFrameLayout = null;
+//        if (viewGroup instanceof ActionBarOverlayLayout)
+//            contentFrameLayout = (ContentFrameLayout) viewGroup.getChildAt(0);
+//        else if (viewGroup instanceof FitWindowsLinearLayout)
+//            contentFrameLayout = (ContentFrameLayout) viewGroup.getChildAt(1);
+//        return contentFrameLayout;
 
-        ViewGroup viewGroup = (ViewGroup) frameLayout.getChildAt(0);
-        ContentFrameLayout contentFrameLayout = null;
-        if (viewGroup instanceof ActionBarOverlayLayout)
-            contentFrameLayout = (ContentFrameLayout) viewGroup.getChildAt(0);
-        else if (viewGroup instanceof FitWindowsLinearLayout)
-            contentFrameLayout = (ContentFrameLayout) viewGroup.getChildAt(1);
-        return contentFrameLayout;
+        View decorView = activity.getWindow().getDecorView();
+
+        return decorView.findViewById(android.R.id.content);
 
     }
 
@@ -364,6 +366,7 @@ public class RxActivityTool {
         context.startActivityForResult(intent, requestCode);
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public static void skipActivityOnTransitions(Context mContext, Class<?> goal, Bundle bundle, Pair<View, String>... pairs) {
         Intent intent = new Intent(mContext, goal);
         Bundle bundle1 = ActivityOptions.makeSceneTransitionAnimation((Activity) mContext, pairs).toBundle();

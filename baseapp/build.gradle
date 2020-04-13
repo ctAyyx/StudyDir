@@ -72,6 +72,17 @@ dependencies {
     //Paging
     api deps.paging.runtime_ktx
 
+    //Room
+    api deps.room.runtime
+    kapt deps.room.compiler
+    api deps.room.extension
+
+    //Dagger2
+    api deps.dagger.runtime
+    api deps.dagger.android
+    api deps.dagger.android_support
+    kapt deps.dagger.compiler
+    kapt deps.dagger.android_processor
 
     //Retrofit
     api deps.retrofit.retrofit

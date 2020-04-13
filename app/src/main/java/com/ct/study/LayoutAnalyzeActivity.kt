@@ -1,42 +1,63 @@
 package com.ct.study
 
+import android.graphics.Camera
+import android.graphics.Canvas
 import android.graphics.Color
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import android.widget.Button
+import android.view.View
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ActionBarContainer
 import androidx.appcompat.widget.ActionBarOverlayLayout
 import androidx.appcompat.widget.ContentFrameLayout
 import androidx.appcompat.widget.FitWindowsLinearLayout
-import androidx.core.view.marginTop
 import com.ct.tool.rx.RxActivityTool
 import com.ct.tool.rx.RxBarTool
-import com.ct.tool.rx.RxDimens
-import com.ct.tool.rx.RxTool
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
- * 1.关于Android中动画的使用 在AnimatorApp中 封装在AnimatorModule中
+ *
+ * 针对 Activity的布局分析
+ *
+ *  //1.关于状态栏
+ * //android:windowTranslucentStatus 透明状态栏
+ * // window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) 移除透明状态栏
+ * //在5.0以前 如果需要设置状态栏颜色,首先要使状态栏透明化,整体布局会上移到手机顶部,设置fitSystemWindow='true'可以防止布局上移
+ * //在5.0以后 默认是设置了状态栏的颜色,如果透明化了状态栏 则需要先移除透明状态栏标记再调用 window.statusBarColor
+ *
+ * //2.关于DecorView
+ * //在Android5.0(21)以后,DecorView包含一个LinearLayout布局和View,View表示状态,栏如果透明化状态啦则只包含一个LinearLayout
+ * //在Android5.0(21)以前,DecorView只包含一个LinearLayout布局,状态栏的高度是该LinearLayout设置的padding
+ * //LinearLayout布局包含一个ViewSub(没有高度)和 FrameLayout
+ * //FrameLayout布局只包含一个ActionBarOverlayLayout,但是在取消系统ActionBar的情况下则只包含一个FitWindowsLinearLayout
+ * //-----ActionBarOverlayLayout包含ContentFrameLayout 和 ActionBarContainer
+ * //     ContentFrameLayout包含的是我们的XML布局,ActionBarContainer包含的是ActionBar的布局
+ * //-----FitWindowsLinearLayout包含 ViewStubCompat(高度0） 和 ContentFrameLayout
+ * //      ContentFrameLayout包含的是我们的XML布局
+ * //                                                                 DecorView
+ * //                                                        (5.0以前)|       |(5.0以后包括5.0)
+ * //
  *
  * */
-class MainActivity : AppCompatActivity() {
+class LayoutAnalyzeActivity : AppCompatActivity() {
 
     private var contentFrameLayout: ContentFrameLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//        )
         setContentView(R.layout.activity_main)
-        //RxBarTool.setStatusBarColor(this,R.color.colorPrimaryDark)
 
-
-
+val canvas=Canvas()
         btn_app_bar.setOnClickListener {
             //changeStatusBar()
-            Log.e("TAG","当前布局RootView："+RxActivityTool.getOurLayout(this))
+            Log.e("TAG", "当前布局RootView：" + RxActivityTool.getOurLayout(this))
         }
         btn_app_layout.setOnClickListener {
             layout()
@@ -48,16 +69,43 @@ class MainActivity : AppCompatActivity() {
 
         if (supportActionBar == null)
             setSupportActionBar(btn_bar)
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            window.statusBarColor = Color.RED
-//        }
 
+
+        btn_app_hideBar.setOnClickListener {
+            //隐藏状态啦
+            val decorView = window.decorView
+
+            decorView.systemUiVisibility = (
+
+                    View.SYSTEM_UI_FLAG_FULLSCREEN
+
+                    )
+            decorView.fitsSystemWindows = false
+            decorView.findViewById<View>(android.R.id.content).fitsSystemWindows = false
+            Log.e("TAG", "---->${decorView.findViewById<View>(android.R.id.content)}")
+            RxActivityTool.getOurLayout(this).fitsSystemWindows = false
+            supportActionBar?.let {
+                it.hide()
+            }
+
+
+        }
+        btn_app_fullScreen.setOnClickListener {
+            //隐藏状态啦
+            val decorView = window.decorView
+
+            decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_IMMERSIVE
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+
+                    )
+        }
     }
 
 
     private fun changeStatusBar() {
-         RxBarTool.setStatusBarColor(this, android.R.color.holo_green_dark)
+        RxBarTool.setStatusBarColor(this, android.R.color.holo_green_dark)
 
 
     }
@@ -199,28 +247,6 @@ class MainActivity : AppCompatActivity() {
             isNull = !isNull
         }
     }
-
-
-
-
-    //1.关于状态栏
-    //android:windowTranslucentStatus 透明状态栏
-    // window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) 移除透明状态栏
-    //在5.0以前 如果需要设置状态栏颜色,首先要使状态栏透明化,整体布局会上移到手机顶部,设置fitSystemWindow='true'可以防止布局上移
-    //在5.0以后 默认是设置了状态栏的颜色,如果透明化了状态栏 则需要先移除透明状态栏标记再调用 window.statusBarColor
-
-    //2.关于DecorView
-    //在Android5.0(21)以后,DecorView包含一个LinearLayout布局和View,View表示状态,栏如果透明化状态啦则只包含一个LinearLayout
-    //在Android5.0(21)以前,DecorView只包含一个LinearLayout布局,状态栏的高度是该LinearLayout设置的padding
-    //LinearLayout布局包含一个ViewSub(没有高度)和 FrameLayout
-    //FrameLayout布局只包含一个ActionBarOverlayLayout,但是在取消系统ActionBar的情况下则只包含一个FitWindowsLinearLayout
-    //-----ActionBarOverlayLayout包含ContentFrameLayout 和 ActionBarContainer
-    //     ContentFrameLayout包含的是我们的XML布局,ActionBarContainer包含的是ActionBar的布局
-    //-----FitWindowsLinearLayout包含 ViewStubCompat(高度0） 和 ContentFrameLayout
-    //      ContentFrameLayout包含的是我们的XML布局
-    //                                                                 DecorView
-    //                                                        (5.0以前)|       |(5.0以后包括5.0)
-    //
 
 
 }

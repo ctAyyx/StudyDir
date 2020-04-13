@@ -2,6 +2,7 @@ package com.ct.kt
 
 import android.util.Log
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import kotlin.system.measureTimeMillis
 
 /**
@@ -215,7 +216,7 @@ class CoroutinesBuilder {
 
         runBlocking {
             val time = measureTimeMillis {
-//                val num1 = num1()
+                //                val num1 = num1()
 //                val num2 = num2()
 //                log("计算的和:${num1 + num2}")
 
@@ -262,7 +263,7 @@ class CoroutinesBuilder {
         runBlocking {
             newSingleThreadContext("Thread-01").use { t01 ->
                 log("start in t01 ----")
-                launch (t01) {
+                launch(t01) {
                     log("start in t01")
                     delay(2000)
                 }
@@ -275,11 +276,162 @@ class CoroutinesBuilder {
 
     }
 
+    /*******************************异步流***************************************/
+
+    //同步构造器
+    fun sequence(): Sequence<Int> = sequence {
+
+        for (i in 1..3) {
+            Thread.sleep(1000)
+            yield(i)
+        }
+
+
+    }
+
+    //异步构造器
+    fun flow(): Flow<Int> = flow {
+        for (i in 1..3) {
+            delay(1000)
+            emit(i)
+        }
+    }
+
+    //流的 转换操作符
+    //流的上游操作map filter transform
+    //流的下游操作
+    // toList toSet 将数据写入集合
+    // first single 返回符合条件的第一个数据 和 确保流发射单个single值,有多个值会抛出异常
+    // reduce fold 将流的值归为一个值
+    suspend fun transitionOperator(): Int {
+        //可以 使用 flow{} flowOf() asFlow()构造流
+        return (1..5).asFlow()
+            .map {
+                it * 2
+            }
+            .filter {
+                it % 3 != 0
+            }
+            .transform { request: Int ->
+                emit(request)
+                emit(request * request)
+            }.reduce { init, value ->
+                init + value
+            }
+
+
+    }
+
+    //默认情况下 流处于调用的CoroutineContext中
+    //要切换流的发射的上下文 可以使用flowOn
+    suspend fun changeFlowThread(): Flow<Int> {
+
+        return flow {
+
+            for (i in 1..5) {
+                log("发射数据$i")
+                delay(1000)
+                emit(i)
+            }
+        }
+    }
+
+
+    //将流发射的数据存入缓冲区
+    //如果消费者来不及消费的话
+    suspend fun bufferFlow() {
+        val time = measureTimeMillis {
+            flow {
+                for (i in 1..5) {
+                    delay(1000)
+                    emit(i)
+                }
+            }
+                .buffer()
+                .collect {
+                    delay(3000)
+                    println("收到的数据:$it")
+                }
+        }
+        println("耗费的时间$time")
+    }
+
+    //组合多个流
+    //合并规则是按照最少的流的个数返回
+    //
+    suspend fun zipFlow() {
+        val flow1 = (1..5).asFlow()
+        val flow2 = flowOf("A", "B", "C")
+        flow1.zip(flow2) { a, b ->
+            "$a ---> $b"
+        }.collect {
+            println("合并的数据:$it")
+        }
+    }
+
+    //展开流
+    fun requestFlow(i: Int) = flow {
+        emit("$i first")
+        delay(500)
+        emit("$i second")
+    }
+
+    //同步展开
+    suspend fun expandFlow() {
+        //这里我们得到一个包含流的流
+        (1..5).asFlow()
+            .map {
+                requestFlow(it)
+            }.collect { }
+        //这里我们展开流
+        //使用 flatMapConcat
+        //也可以使用flattenConcat
+        (1..5).asFlow()
+            .flatMapConcat {
+                requestFlow(it)
+            }
+            .collect {
+                println("使用FlatMapConcat:$it'")
+            }
+
+        (1..5).asFlow()
+            .map { requestFlow(it) }
+            .flattenConcat()
+            .collect {
+                println("使用FlattenConcat:$it'")
+            }
+
+    }
+
+    //并发操作
+    //使用 FlatMapMerge flattenMerge
+    suspend fun expandFlowAsync() {
+
+        (1..5).asFlow().onEach {
+            delay(100)//每个延迟100ms
+        }.flatMapMerge {
+            requestFlow(it)
+        }.collect {
+            println("flatMapMerge并发收集的数据:$it")
+        }
+
+        (1..5).asFlow().onEach {
+            delay(100)//每个延迟100ms
+        }.map { requestFlow(it) }
+            .flattenMerge()
+            .collect {
+                println("flattenMerge并发收集的数据:$it")
+            }
+
+    }
+
 }
+
 
 fun log(msg: String) {
     println("[${Thread.currentThread().name}] $msg")
     // Log.e(TAG, msg)
+
 }
 
 fun main() {
@@ -300,6 +452,44 @@ fun main() {
     //builder.timeOutJob2()
     //并发操作
     //builder.asyncJob()
-    builder.checkThread()
+    //builder.checkThread()
+
+    /*****************异步流*******************/
+
+//    builder.sequence().forEach {
+//        println(it)
+//    }
+
+    runBlocking() {
+        //        builder.flow().filter {
+//            it == 2
+//        }.collect {
+//            println(it)
+//        }
+
+        //流的操作符
+        //println("流的值:${builder.transitionOperator()}")
+
+        //流的调度
+//        builder.changeFlowThread()
+//            .flowOn(Dispatchers.IO)
+//            .collect {
+//                log("收集的数据:$it")
+//            }
+
+
+        //缓存流
+        // builder.bufferFlow()
+
+        //合并流
+
+        //builder.zipFlow()
+
+        //展开流
+        //builder.expandFlow()
+        builder.expandFlowAsync()
+
+    }
+
     println("=======Main Een=========")
 }

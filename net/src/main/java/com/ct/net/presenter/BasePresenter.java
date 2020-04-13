@@ -26,32 +26,20 @@ import io.reactivex.functions.Consumer;
  * 2 获取缓存和网络请求(对数据实时性要求高的)
  */
 
-public abstract class BasePresenter<A> implements Contract.Presenter {
+public abstract class BasePresenter implements Contract.Presenter {
 
     protected Contract.IView iView;
 
-    protected A serviceApi;
 
     protected SparseArray<Disposable> map;
 
     protected Context context;
 
     public BasePresenter(Context context) {
-        initApi();
         if (map == null)
             map = new SparseArray<>();
         this.context = context.getApplicationContext();
 
-    }
-
-    protected void initApi() {
-        serviceApi = ServiceNet.init()
-                .initService(getBaseUrl())
-                .create(initServiceApi());
-    }
-
-    public A getServiceApi() {
-        return serviceApi;
     }
 
 
@@ -75,8 +63,6 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
      * 重写此方法来修改
      */
     protected abstract String getBaseUrl();
-
-    protected abstract Class<A> initServiceApi();
 
     /**
      * 实现基本的数据响应,默认实现BaseResponse响应数据
@@ -117,8 +103,9 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
                             @Override
                             public void accept(Disposable disposable) throws Exception {
                                 if (iView != null) {
-                                    iView.showProgress(code, msg);
                                     iView.onBefore(code);
+                                    iView.showProgress(code, msg);
+
                                 }
 
                                 map.put(code, disposable);
@@ -126,7 +113,7 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
                                 //在这里判断网络是否连接
                                 if (!RxNetTool.isNetworkAvailable(context)) {
                                     if (iView != null)
-                                        iView.onNoNet(code);
+                                        iView.onError(code, "当前网络不可用!", 100);
                                     cancel(code, false
                                     );
                                 }
@@ -143,8 +130,8 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
         if (iView == null)
             return;
         if (response == null)
-            iView.onError(code, "BaseResponse is null");
-        else
+            iView.onError(code, "BaseResponse is null", 101);
+        else //TODO 可以在这里对数据进行预处理 默认为数据不为NULL 则成功
             iView.onSuccess(code, response);
 
         iView.hideProgress(code);
@@ -176,8 +163,8 @@ public abstract class BasePresenter<A> implements Contract.Presenter {
             disposable.dispose();
 
         if (iView != null) {
-            iView.onAfter(code, isCancelByUser);
             iView.hideProgress(code);
+            iView.onAfter(code, isCancelByUser);
         }
 
     }

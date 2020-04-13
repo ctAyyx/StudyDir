@@ -36,10 +36,11 @@ public interface Contract {
         /**
          * 数据请求失败
          *
-         * @param code 数据请求码
-         * @param msg  错误信息
+         * @param code      数据请求码
+         * @param msg       错误信息
+         * @param errorCode 错误码
          */
-        void onError(int code, String msg);
+        void onError(int code, String msg, int errorCode);
 
 
         /**
@@ -67,13 +68,6 @@ public interface Contract {
 
         void onAfter(int code, boolean isCancelByUser);
 
-
-        /**
-         * 无网络连接
-         *
-         * @param code 数据请求码
-         */
-        void onNoNet(int code);
 
     }
 

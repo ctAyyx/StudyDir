@@ -1,12 +1,10 @@
 package com.ct.ipcservice
 
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Bundle
-import android.os.Handler
-import android.os.Message
-import android.os.Messenger
+import android.os.*
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity

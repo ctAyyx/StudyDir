@@ -15,6 +15,7 @@ versions.paging = '2.1.1'
 versions.lifecycle = '2.2.0'
 versions.room = '2.2.3'
 versions.work = '2.3.0'
+versions.preference='1.1.0'
 
 versions.dagger = '2.27'
 versions.glide = '4.11.0'
@@ -107,6 +108,12 @@ room.test = "androidx.room:room-testing:$versions.room"//testImplementation
 def work = [:]
 work.runtime = "androidx.work:work-runtime-ktx:$versions.work"
 
+//设置库
+def preference=[:]
+preference.preference_ktx ="androidx.preference:preference-ktx:$versions.preference"
+preference.preference ="androidx.preference:preference:$versions.preference"
+
+
 
 //Retrofit
 def retrofit = [:]
@@ -126,10 +133,10 @@ glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
 //Dagger2
 def dagger = [:]
 dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
-dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger" //kapt annotationProcessor
 dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
 dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
-dagger.android_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"
+dagger.android_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"//kapt annotationProcessor 
 
 //Zxing
 def zxing =[:]
