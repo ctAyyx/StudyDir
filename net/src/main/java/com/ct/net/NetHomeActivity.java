@@ -24,8 +24,8 @@ public class NetHomeActivity extends AppCompatActivity implements Contract.IView
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_net);
-        presenter = new BannerPresenter(this);
-        presenter.subscribe(this);
+       // presenter = new BannerPresenter(this);
+       // presenter.subscribe(this);
     }
 
 //    public void onClick(View view) {

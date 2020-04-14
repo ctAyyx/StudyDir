@@ -9,20 +9,9 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-class BannerPresenter(context: Context) :
-    BasePresenter<ServiceApi>(context) {
-    override fun getBaseUrl(): String {
-        return "https://gank.io"
-    }
+class BannerPresenter(context: Context, private val serviceApi: ServiceApi) :
+    BasePresenter(context) {
 
-    override fun initServiceApi(): Class<ServiceApi> {
-        return ServiceApi::class.java
-    }
-
-
-    fun getBanner(code: Int) {
-        onFilter(serviceApi.getBanner("测试数据"), code)
-    }
 
     fun upFile(code: Int) {
         val file = File(
@@ -113,4 +102,6 @@ class BannerPresenter(context: Context) :
         serviceApi.downApk("http://3g.163.com/links/4636")
 
     }
+
+
 }

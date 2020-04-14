@@ -59,12 +59,6 @@ public abstract class BasePresenter implements Contract.Presenter {
     }
 
     /**
-     * 获取请求的基本网络地址
-     * 重写此方法来修改
-     */
-    protected abstract String getBaseUrl();
-
-    /**
      * 实现基本的数据响应,默认实现BaseResponse响应数据
      */
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dialog 公共属性 -->
+    <style name="DialogBaseTheme" parent="Base.Theme.AppCompat.Light.Dialog">
+        <!--    设置Window的背景颜色    -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--    设置所有界面的背景颜色    -->
+        <item name="android:background">@android:color/holo_green_dark</item>
+        <!--    是否不显示Title     -->
+        <item name="android:windowNoTitle">true</item>
+        <!--      是否悬浮在Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!--    绘制一个前景图    -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!--     是否可以水平滚动   -->
+        <item name="android:scrollHorizontally">true</item>
+
+
+        <!--        <item name="colorPrimary">?attr/colorPrimary</item>-->
+        <!--        <item name="colorPrimaryDark">?attr/colorPrimaryDark</item>-->
+        <!--        <item name="colorAccent">?attr/colorAccent</item>-->
+
+    </style>
+
+    <!-- LoadingDialog 风格 -->
+
+    <style name="LoadingDialog" parent="DialogBaseTheme">
+        <!--边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--背景是否模糊显示-->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!--    背景亮度  0~1 0表示透明 1表示全黑 默认为0.5 -->
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="DialogAnim">
+        <item name="android:windowExitAnimation">@anim/slide_right_exit</item>
+        <item name="android:windowEnterAnimation">@anim/slide_left_enter</item>
+    </style>
+
+</resources>
