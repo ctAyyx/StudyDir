@@ -1,8 +1,7 @@
 package com.ct.aac.paging
 
 import com.ct.aac.vo.BaseResponse
-import com.ct.aac.vo.Category
-import okhttp3.ResponseBody
+import com.ct.aac.vo.Category2
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -23,5 +22,5 @@ interface ServiceApi {
         @Path("page") page: Int,
         @Path("count") count:Int
 
-    ): Call<BaseResponse<List<Category>>>
+    ): Call<BaseResponse<List<Category2>>>
 }

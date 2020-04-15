@@ -2,12 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <data>
 
         <variable
             name="model"
-            type="com.ct.aac.vo.Category2" />
+            type="com.ct.aac.synthesize.vo.Category" />
     </data>
 
     <LinearLayout
@@ -15,7 +14,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:background="@color/color_green"
         android:padding="16dp">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -31,5 +29,6 @@
             android:textSize="18sp" />
 
     </LinearLayout>
+
 
 </layout>

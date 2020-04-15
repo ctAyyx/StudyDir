@@ -2,14 +2,13 @@ package com.ct.aac.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ct.aac.databinding.ItemCategoryBinding
-import com.ct.aac.vo.Category
+import com.ct.aac.vo.Category2
 
-class CategoryAdapter : PagedListAdapter<Category, CategoryAdapter.ViewHolder>(DIFF()) {
+class CategoryAdapter : PagedListAdapter<Category2, CategoryAdapter.ViewHolder>(DIFF()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -30,18 +29,18 @@ class CategoryAdapter : PagedListAdapter<Category, CategoryAdapter.ViewHolder>(D
     inner class ViewHolder(private val bind: ItemCategoryBinding) :
         RecyclerView.ViewHolder(bind.root) {
 
-        fun bind(model: Category) {
+        fun bind(model: Category2) {
             bind.model = model
         }
     }
 
 
-    class DIFF : DiffUtil.ItemCallback<Category>() {
-        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+    class DIFF : DiffUtil.ItemCallback<Category2>() {
+        override fun areItemsTheSame(oldItem: Category2, newItem: Category2): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+        override fun areContentsTheSame(oldItem: Category2, newItem: Category2): Boolean {
             return oldItem.id == newItem.id
         }
 

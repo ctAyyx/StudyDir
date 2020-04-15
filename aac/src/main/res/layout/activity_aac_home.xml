@@ -34,12 +34,20 @@
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="Paging的使用" />
+
     <Button
         android:id="@+id/btn_aac_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="Room的使用" />
+
+    <Button
+        android:id="@+id/btn_aac_synthesize"
+        android:onClick="onClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="综合使用" />
 
 
 </LinearLayout>

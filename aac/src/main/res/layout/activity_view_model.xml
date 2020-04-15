@@ -20,4 +20,29 @@
         android:text="更改数据"
         android:onClick="onClick"
         android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_vm_mediator"
+        android:layout_width="match_parent"
+        android:text="针对MediatorLiveData的使用"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btn_vm_mediator_01"
+        android:layout_width="match_parent"
+        android:text="改变数据源01的值"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btn_vm_mediator_02"
+        android:layout_width="match_parent"
+        android:text="改变数据源02的值"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btn_vm_mediator_03"
+        android:layout_width="match_parent"
+        android:text="直接改变Mediator自己的值"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

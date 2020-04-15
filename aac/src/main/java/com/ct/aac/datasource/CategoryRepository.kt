@@ -1,12 +1,12 @@
 package com.ct.aac.datasource
 
 import com.ct.aac.paging.ServiceApi
-import com.ct.aac.vo.Category
+import com.ct.aac.vo.Category2
 import com.ct.aac.vo.Listing
 
 class CategoryRepository(private val serviceApi: ServiceApi) {
 
-    fun getCategory(): Listing<Category> {
+    fun getCategory(): Listing<Category2> {
         val factory = CategoryDataSourceFactory(serviceApi)
         val pagedList = factory.toMyLiveData(
             pageSize = 10

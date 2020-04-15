@@ -19,6 +19,7 @@ class AACHomeActivity : AppCompatActivity() {
             R.id.btn_aac_viewModel -> startActivity(Intent(this, ViewModelActivity::class.java))
             R.id.btn_aac_paging -> startActivity(Intent(this, PagingActivity::class.java))
             R.id.btn_aac_room -> startActivity(Intent(this, RoomActivity::class.java))
+            R.id.btn_aac_synthesize -> startActivity(Intent(this, SynthesizeActivity::class.java))
         }
 
     }

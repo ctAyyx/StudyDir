@@ -29,8 +29,8 @@ import java.util.List;
  * */
 
 //@Fts4
-@Entity(tableName = "categories")
-public class Category {
+//@Entity(tableName = "categories")
+public class Category2 {
 
 
     /**
