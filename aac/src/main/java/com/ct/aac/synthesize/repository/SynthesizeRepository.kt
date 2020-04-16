@@ -97,7 +97,7 @@ class SynthesizeRepository(val serviceApi: GankServiceApi) {
         return object : NetworkBoundResource<PagedList<Category>>() {
             override fun loadFromBb(): LiveData<PagedList<Category>> {
                 return dao.getCategory02()
-                    .toLiveData(pageSize = 10, boundaryCallback = BoundCallback())
+                    .toLiveData(pageSize = 1, boundaryCallback = BoundCallback())
             }
 
             override fun showFetch(dbData: PagedList<Category>?): Boolean {

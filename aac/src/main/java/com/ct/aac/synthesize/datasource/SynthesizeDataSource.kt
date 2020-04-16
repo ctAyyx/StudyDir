@@ -2,6 +2,7 @@ package com.ct.aac.synthesize.datasource
 
 import android.util.Log
 import androidx.paging.PageKeyedDataSource
+import androidx.room.paging.LimitOffsetDataSource
 import com.ct.aac.synthesize.api.GankServiceApi
 import com.ct.aac.synthesize.vo.Category
 
@@ -19,6 +20,7 @@ class SynthesizeDataSource(val category: String, val serviceApi: GankServiceApi)
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Category>
     ) {
+       
         Log.e("TAG", "SynthesizeDataSource---从网络初始化数据")
         val call = serviceApi.getCategory(category, 1)
         val result = call.execute().body()?.data ?: emptyList()
