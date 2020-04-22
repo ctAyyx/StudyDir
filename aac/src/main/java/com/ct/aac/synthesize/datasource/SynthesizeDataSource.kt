@@ -13,18 +13,18 @@ import com.ct.aac.synthesize.vo.Category
  * @Description :
  *
  */
-class SynthesizeDataSource(val category: String, val serviceApi: GankServiceApi) :
+class SynthesizeDataSource(val category: String, val serviceApi: GankServiceApi, val page: Int) :
     PageKeyedDataSource<Int, Category>() {
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Category>
     ) {
-       
+
         Log.e("TAG", "SynthesizeDataSource---从网络初始化数据")
-        val call = serviceApi.getCategory(category, 1)
+        val call = serviceApi.getCategory(category, page)
         val result = call.execute().body()?.data ?: emptyList()
-        callback.onResult(result, 1, 2)
+        callback.onResult(result, page, page + 1)
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Category>) {

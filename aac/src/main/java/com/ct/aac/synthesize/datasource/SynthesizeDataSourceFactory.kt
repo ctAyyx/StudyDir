@@ -11,10 +11,14 @@ import com.ct.aac.synthesize.vo.Category
  * @Description :
  *
  */
-class SynthesizeDataSourceFactory(val category: String, val serviceApi: GankServiceApi) :
+class SynthesizeDataSourceFactory(
+    val category: String,
+    val serviceApi: GankServiceApi,
+    val page: Int = 1
+) :
     DataSource.Factory<Int, Category>() {
     override fun create(): DataSource<Int, Category> {
-        val result = SynthesizeDataSource(category, serviceApi)
+        val result = SynthesizeDataSource(category, serviceApi,page)
         return result
     }
 }

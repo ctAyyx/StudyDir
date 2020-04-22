@@ -43,12 +43,16 @@ class CategoryAdapter : PagedListAdapter<Category, CategoryAdapter.ViewHolder>(D
 
     }
 
+    /**
+     * 这里不要直接 比较对象
+     * 会出现闪屏问题
+     * */
     class DIFF : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean =
-            oldItem == newItem
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean =
-            oldItem.id == newItem.id
+            oldItem.desc == newItem.desc
 
     }
 

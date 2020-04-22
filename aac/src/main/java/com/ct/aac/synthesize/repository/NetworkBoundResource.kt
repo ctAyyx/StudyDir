@@ -20,7 +20,7 @@ abstract class NetworkBoundResource<ResultType> {
 
     init {
         //表示当前状态为Loading
-        //result.value = null
+        result.value = null
         //从数据库加载数据
         @Suppress("LeakingThis")
         val dbSource = loadFromBb()
@@ -36,7 +36,7 @@ abstract class NetworkBoundResource<ResultType> {
             //直接使用数据库的数据
             {
                 result.addSource(dbSource) {
-                    setValue(dbData)
+                    setValue(it)
                 }
             }
         }
@@ -49,7 +49,6 @@ abstract class NetworkBoundResource<ResultType> {
     private fun setValue(newValue: ResultType) {
         if (result.value != newValue)
             result.value = newValue
-
     }
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
@@ -58,23 +57,13 @@ abstract class NetworkBoundResource<ResultType> {
         //将网络源添加到result中
         result.addSource(apiResponse) { netData ->
             //当网络源数据更新时,同时取消对数据库源 和 网络源 的监听
-//            result.removeSource(apiResponse)
-//            result.removeSource(dbSource)
-//            result.addSource(loadFromBb()) {
-//                setValue(it)
-//            }
-            //这里向数据库存入数据
-//            saveFetchResult(netData)
-
-            //重新定义数据分发模式
-            //网络获取的数据 直接设置给result 并向数据库添加数据
-            //这个时候不在监听数据库的数据了,因为数据库的数据不是最新的数据
-            //我们直接使用PagedList.BoundaryCallback,在它的onItemAtEndLoaded的方法中保存数据到数据库
-            Log.e("TAG", "网络获取的数据....")
+            result.removeSource(apiResponse)
             result.removeSource(dbSource)
+            result.addSource(loadFromBb()) {
+                setValue(it)
+            }
+            //这里向数据库存入数据
             saveFetchResult(netData)
-            setValue(netData)
-
         }
 
     }
@@ -87,6 +76,8 @@ abstract class NetworkBoundResource<ResultType> {
     /**
      * 是否应该从网络加载数据
      * @param dbData 数据库获取的数据 可能为null
+     * 如果 这里是针对PagedList的使用 则返回false 不在使用这里的网络数据源
+     * 应该使用BoundCallback来请求网络
      * */
     abstract fun showFetch(dbData: ResultType?): Boolean
 

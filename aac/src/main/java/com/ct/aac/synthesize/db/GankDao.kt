@@ -3,10 +3,7 @@ package com.ct.aac.synthesize.db
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.paging.PagedList
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.ct.aac.synthesize.vo.Category
 
 /**
@@ -19,6 +16,14 @@ import com.ct.aac.synthesize.vo.Category
 @Dao
 interface GankDao {
 
+    @Query(
+        """
+        SELECT * FROM CATEGORY
+        LIMIT :size OFFSET :page
+    """
+    )
+    fun getCategoryByPage(size: Int, page: Int): List<Category>
+
     /**
      * 返回 可观察数据
      * */
@@ -27,6 +32,7 @@ interface GankDao {
         SELECT * FROM CATEGORY
     """
     )
+
     fun getCategory(): LiveData<List<Category>>
 
     /**
@@ -41,4 +47,11 @@ interface GankDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCategory(vararg category: Category)
+
+    @Query(
+        """
+        DELETE FROM Category
+    """
+    )
+    fun clearCategory()
 }

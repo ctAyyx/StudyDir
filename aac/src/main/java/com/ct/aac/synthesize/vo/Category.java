@@ -69,6 +69,9 @@ public class Category {
     @SerializedName("images")
     public List<String> images;
 
+    //记录当前分页
+    public int page = 1;
+
     @NonNull
     @Override
     public String toString() {

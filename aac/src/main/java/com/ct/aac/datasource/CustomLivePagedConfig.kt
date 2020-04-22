@@ -22,7 +22,7 @@ fun <Key, Value> DataSource.Factory<Key, Value>.toMyLiveData(
 fun CustomPagedConfig(
     pageSize: Int,
     prefetchDistance: Int = pageSize,
-    enablePlaceholders: Boolean = true,
+    enablePlaceholders: Boolean = false,
     initialLoadSizeHint: Int =
         pageSize,
     maxSize: Int = PagedList.Config.MAX_SIZE_UNBOUNDED

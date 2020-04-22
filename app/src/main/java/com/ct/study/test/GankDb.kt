@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
  * @Description :
  *
  */
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class], version = 1,exportSchema = false)
 abstract class GankDb : RoomDatabase() {
 
     abstract fun userDao(): UserDao
