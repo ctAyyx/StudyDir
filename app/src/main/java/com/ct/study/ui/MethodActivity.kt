@@ -35,6 +35,10 @@ import kotlinx.android.synthetic.main.activity_method.*
  *
  * ps:如果在Activity分发Down事件就不能消费的话后面的事件都会在调用getWindow().superDispatchTouchEvent(ev)时返回false
  *    直接交由Activity的onTouchEvent处理
+ *
+ * 手势处理
+ *  GestureDetector
+ *
  * */
 class MethodActivity : AppCompatActivity() {
 
@@ -42,7 +46,11 @@ class MethodActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_method)
 
-        //tv_method.setOnClickListener { }
+        tv_method.setOnClickListener {
+
+        }
+
+
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

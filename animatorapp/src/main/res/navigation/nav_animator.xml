@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_valueFragment"
             app:destination="@id/valueFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_moveFragment"
+            app:destination="@id/moveFragment" />
     </fragment>
     <fragment
         android:id="@+id/objectFragment"
@@ -24,4 +27,8 @@
         android:id="@+id/valueFragment"
         android:name="com.ct.animator.ui.ValueFragment"
         android:label="ValueFragment" />
+    <fragment
+        android:id="@+id/moveFragment"
+        android:name="com.ct.animator.ui.MoveFragment"
+        android:label="MoveFragment" />
 </navigation>

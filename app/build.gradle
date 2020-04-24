@@ -51,7 +51,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     implementation "pub.devrel:easypermissions:3.0.0"
 
- //   implementation 'com.teprinciple:updateapputilsx:2.3.0'
-  //  implementation 'com.android.support:multidex:1.0.3'
+    //   implementation 'com.teprinciple:updateapputilsx:2.3.0'
+    //  implementation 'com.android.support:multidex:1.0.3'
 
+    //基于物理特性的动画库
+    implementation "androidx.dynamicanimation:dynamicanimation:1.0.0"
 }

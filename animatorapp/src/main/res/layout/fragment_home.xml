@@ -6,23 +6,113 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_animHome_value"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ValueAnimator" />
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_animHome_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ValueAnimator" />
 
 
-        <Button
-            android:id="@+id/btn_animHome_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Activity转场动画" />
+            <Button
+                android:id="@+id/btn_animHome_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LayoutTransition" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_animHome_crosss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="淡入淡出效果" />
+            <Button
+                android:id="@+id/btn_animHome_move"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="使用动画移动视图" />
+
+
+            <Button
+                android:id="@+id/btn_animHome_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity转场动画" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_cross"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/share"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/progress_cross"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+            </FrameLayout>
+
+
+            <Button
+                android:id="@+id/btn_animHome_flip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="卡片翻转效果" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_flip01"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/share" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_flip02"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg" />
+
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btn_animHome_reveal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="揭露动画" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_reveal"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg" />
+
+
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

@@ -9,23 +9,23 @@ import android.transition.Slide
 import com.ct.animator.R
 import kotlinx.android.synthetic.main.activity_transition02.*
 
-class TransitionActivity02 : AppCompatActivity() {
+class TransitionActivity02 : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transition02)
 
-
+        img_transition02_share.transitionName = "image_share"
         btn_transition02_21.setOnClickListener {
             //在5.0以后 要使用finishAfterTransition来表示完成转场动画之后finish掉界面
-            finishAfterTransition()
+           close()
         }
-        if (Build.VERSION.SDK_INT >= 21) {
-            img_transition02_share.transitionName = "image_share"
-
-            window.enterTransition = Explode()
-            window.exitTransition = Explode()
-        }
+//        if (Build.VERSION.SDK_INT >= 21) {
+//
+//
+//            window.enterTransition = Explode()
+//            window.exitTransition = Explode()
+//        }
 
 
     }

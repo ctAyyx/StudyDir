@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  翻转  -->
+    <objectAnimator
+        android:duration="@integer/anim_flip_time_full"
+        android:propertyName="rotationY"
+        android:valueFrom="0"
+        android:valueTo="180"
+        android:valueType="floatType" />
+
+    <!--  在翻转到一半的时候将alpha设为0  -->
+    <objectAnimator
+        android:duration="1"
+        android:propertyName="alpha"
+        android:startOffset="@integer/anim_flip_time_half"
+        android:valueFrom="1.0"
+        android:valueTo="0.0"
+        android:valueType="floatType" />
+</set>

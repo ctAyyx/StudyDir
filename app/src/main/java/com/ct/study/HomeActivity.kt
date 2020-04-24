@@ -9,10 +9,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
+import com.ct.study.notification.NotificationActivity
 import com.ct.study.rv.RvActivity
 import com.ct.study.test.GankDb
 import com.ct.study.ui.DialogActivity
 import com.ct.study.ui.MethodActivity
+import com.ct.study.ui.ScrollerActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -40,6 +42,7 @@ class HomeActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                 readyGo(DialogActivity::class)
             }
             R.id.btn_home_method -> readyGo(MethodActivity::class)
+            R.id.btn_home_scroller->readyGo(ScrollerActivity::class)
             R.id.btn_home_file -> {
                 //请求权限
                 EasyPermissions.requestPermissions(
@@ -58,6 +61,7 @@ class HomeActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
             }
             R.id.btn_home_recycler -> startActivity(Intent(this, RvActivity::class.java))
+            R.id.btn_home_notification ->startActivity(Intent(this, NotificationActivity::class.java))
 
         }
     }

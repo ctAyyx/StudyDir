@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".notification.NotificationActivity">
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_notify_normal"
+        android:layout_width="match_parent"
+        android:text="发送一个普通的通知"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_notify_progress"
+        android:layout_width="match_parent"
+        android:text="发送一个带进度条的通知"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_notify_down"
+        android:layout_width="match_parent"
+        android:text="模拟下载"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_notify_full"
+        android:layout_width="match_parent"
+        android:text="显示紧急通知"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

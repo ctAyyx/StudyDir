@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_transition01.*
  *
  * 在5.0以后 用ActivityOptionsCompat来实现转场动画
  * */
-class TransitionActivity01 : AppCompatActivity() {
+class TransitionActivity01 : BaseActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +29,9 @@ class TransitionActivity01 : AppCompatActivity() {
         setContentView(R.layout.activity_transition01)
 
         btn_transition01_common.setOnClickListener {
-            commonTransitionStyle()
+            //commonTransitionStyle()
             //commonTransition()
+            readyGoBy(TransitionActivity02::class)
         }
 
         btn_transition01_21.setOnClickListener {
@@ -39,8 +40,9 @@ class TransitionActivity01 : AppCompatActivity() {
 
         btn_transition01_share.setOnClickListener {
 
-           // transition21Share()
-            transition21Share02()
+            // transition21Share()
+            // transition21Share02()
+            readyGoBy(TransitionActivity02::class,createPair(img_transition01_share,"image_share"))
         }
 
     }
