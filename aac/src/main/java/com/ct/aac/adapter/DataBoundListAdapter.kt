@@ -22,8 +22,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.android.example.github.ui.common.DataBoundViewHolder
-import java.util.concurrent.Executors
 
 
 /**

@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * //在5.0以后 默认是设置了状态栏的颜色,如果透明化了状态栏 则需要先移除透明状态栏标记再调用 window.statusBarColor
  *
  * //2.关于DecorView
- * //在Android5.0(21)以后,DecorView包含一个LinearLayout布局和View,View表示状态,栏如果透明化状态啦则只包含一个LinearLayout
+ * //在Android5.0(21)以后,DecorView包含一个LinearLayout布局和View,View表示状态栏如果透明化状态啦则只包含一个LinearLayout
  * //在Android5.0(21)以前,DecorView只包含一个LinearLayout布局,状态栏的高度是该LinearLayout设置的padding
  * //LinearLayout布局包含一个ViewSub(没有高度)和 FrameLayout
  * //FrameLayout布局只包含一个ActionBarOverlayLayout,但是在取消系统ActionBar的情况下则只包含一个FitWindowsLinearLayout

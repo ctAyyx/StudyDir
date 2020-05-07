@@ -15,7 +15,7 @@ versions.paging = '2.1.1'
 versions.lifecycle = '2.2.0'
 versions.room = '2.2.3'
 versions.work = '2.3.0'
-versions.preference='1.1.0'
+versions.preference = '1.1.0'
 
 versions.dagger = '2.27'
 versions.glide = '4.11.0'
@@ -23,9 +23,9 @@ versions.retrofit = '2.7.2'
 //versions.rxjava2 = '2.7.2'
 //versions.converter_gson = '2.7.2'
 versions.rxAndroid = '2.1.1'
-versions.rx ='3.0.1'
+versions.rx = '3.0.1'
 versions.leakcanary = '2.2'
-versions.zxing='3.3.1'
+versions.zxing = '3.3.1'
 
 def gradle = [:]
 gradle.gradle = "com.android.tools.build:gradle:$versions.gradle"
@@ -109,10 +109,9 @@ def work = [:]
 work.runtime = "androidx.work:work-runtime-ktx:$versions.work"
 
 //设置库
-def preference=[:]
-preference.preference_ktx ="androidx.preference:preference-ktx:$versions.preference"
-preference.preference ="androidx.preference:preference:$versions.preference"
-
+def preference = [:]
+preference.preference_ktx = "androidx.preference:preference-ktx:$versions.preference"
+preference.preference = "androidx.preference:preference:$versions.preference"
 
 
 //Retrofit
@@ -121,9 +120,9 @@ retrofit.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
 retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
 retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
 
-def rx2=[:]
-rx2.android="io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
-rx2.rx="io.reactivex.rxjava3:rxjava:$versions.rx"
+def rx2 = [:]
+rx2.android = "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+rx2.rx = "io.reactivex.rxjava3:rxjava:$versions.rx"
 
 //Glide
 def glide = [:]
@@ -139,8 +138,20 @@ dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dag
 dagger.android_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"//kapt annotationProcessor 
 
 //Zxing
-def zxing =[:]
-zxing.core="com.google.zxing:core:$versions.zxing"
+def zxing = [:]
+zxing.core = "com.google.zxing:core:$versions.zxing"
+
+//换肤
+def skin = [:]
+skin.core = "com.zhy:changeskin:4.0.2"
+
+//AutoSize
+def autosize = [:]
+autosize.core = "me.jessyan:autosize:1.2.1"
+
+//EasyPermission
+def permission = [:]
+permission.core="pub.devrel:easypermissions:3.0.0"
 
 def leakcanary = [:]
 leakcanary.android = "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"//debugImplementation
@@ -160,10 +171,13 @@ deps.lifecycle = lifecycle
 deps.room = room
 deps.work = work
 deps.retrofit = retrofit
-deps.rx2=rx2
+deps.rx2 = rx2
 deps.glide = glide
 deps.dagger = dagger
 deps.zxing = zxing
+deps.skin = skin
+deps.autosize = autosize
+deps.permission = permission
 deps.test = test
 
 

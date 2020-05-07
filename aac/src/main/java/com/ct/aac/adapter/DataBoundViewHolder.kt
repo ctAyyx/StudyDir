@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.ui.common
+package com.ct.aac.adapter
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
